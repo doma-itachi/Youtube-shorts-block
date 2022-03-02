@@ -1,7 +1,9 @@
 *{
     font-family: 'M PLUS 2', sans-serif;
 }
-
+.cantSelectable{
+    user-select: none;
+}
 body{
     margin:0%;
     /* border: 1px solid gray; */
