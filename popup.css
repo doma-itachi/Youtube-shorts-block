@@ -59,6 +59,38 @@ header>p{
     margin-bottom: 1px;
     height: auto;
 }
+
+:root{
+    --toggleButtonColor: #cfcfcf;
+    --toggleAnimDuring: 90ms;
+    --toggleButtonHeight:15px;
+}
+
+#toggle_wrap{
+    width: 35px;
+    height: var(--toggleButtonHeight);
+    margin: auto 10px;
+    border-radius: 9999px;
+    background-color: lightgray;
+    /* outline: #dedede solid 1px; */
+    transition: background-color var(--toggleAnimDuring);
+}
+#toggle_wrap[checked=true]{
+    background-color:lawngreen;
+}
+#toggle_circle{
+    width: var(--toggleButtonHeight);
+    height: var(--toggleButtonHeight);
+    border-radius: 100%;
+    background-color: gray;
+
+    margin-left: 0%;
+    transition: margin-left var(--toggleAnimDuring);
+}
+#toggle_circle[checked=true]{
+    margin-left: calc(100% - 15px);
+}
+
 #content>button{
     width: fit-content;
     height: fit-content;

@@ -4,18 +4,23 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=M+PLUS+2&display=swap" rel="stylesheet">
-
+        <meta charset="utf-8">
         <link href="popup.css" rel="stylesheet">
     </head>
     <body>
         <header>
-            <img src="./icons/icon.svg">
+            <img class="cantSelectable" src="./icons/icon.svg">
             <h1 class="cantSelectable">Youtube-shorts block</h1>
             <p id="description" class="cantSelectable">Youtube-shortsをブロックします</p>
         </header>
 
         <div id="content">
-            <button id="btn_repo">Github</button>
+            <!-- <button id="btn_repo">Github</button> -->
+            <div id="toggle_wrap">
+                <div id="toggle_circle" checked>
+
+                </div>
+            </div>
             <p id="version" class="cantSelectable">v.</p>
         </div>
 
