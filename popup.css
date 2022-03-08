@@ -76,7 +76,7 @@ header>p{
     transition: background-color var(--toggleAnimDuring);
 }
 #toggle_wrap[checked=true]{
-    background-color:lawngreen;
+    background-color:#99FF66;
 }
 #toggle_circle{
     width: var(--toggleButtonHeight);
