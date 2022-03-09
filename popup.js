@@ -21,6 +21,7 @@ window.onload=function(){
     });
 };
 function setToggleAttr(bool){
+    document.getElementById("logo").setAttribute("enabled",bool)
     document.getElementById("toggle_wrap").setAttribute("checked", bool);
     document.getElementById("toggle_circle").setAttribute("checked",bool);
 }
