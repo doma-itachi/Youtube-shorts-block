@@ -88,7 +88,7 @@ header>p{
     transition: margin-left var(--toggleAnimDuring);
 }
 #toggle_circle[checked=true]{
-    margin-left: calc(100% - 15px);
+    margin-left: calc(100% - var(--toggleButtonHeight));
 }
 
 #content>button{
