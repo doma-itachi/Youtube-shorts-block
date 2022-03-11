@@ -1,12 +1,12 @@
 let isEnable=true;
 
 //debug
-let startTime;
-let endTime;
+// let startTime;
+// let endTime;
 
 document.addEventListener("yt-navigate-start",function(event){
     //debug
-    startTime=performance.now();
+    // startTime=performance.now();
 
     let basURI=event.target.baseURI;
     let normalURI=uriCheck(basURI);
@@ -15,8 +15,8 @@ document.addEventListener("yt-navigate-start",function(event){
         location=normalURI;
 
         //debug
-        endTime=performance.now();
-        getTime();
+        // endTime=performance.now();
+        // getTime();
     }
 });
 
@@ -28,7 +28,7 @@ chrome.storage.onChanged.addListener(function(){
 loadSettings();
 
 //debug
-startTime=performance.now();
+// startTime=performance.now();
 
 let uri=uriCheck(location.href);
 
@@ -36,8 +36,8 @@ if(uri!==null && isEnable){
     location=uri;
 
     //debug
-    endTime=performance.now();
-    getTime();
+    // endTime=performance.now();
+    // getTime();
 }
 
 function uriCheck(_uri){
@@ -57,6 +57,6 @@ function loadSettings(){
 }
 
 //debug
-function getTime(){
-    alert(endTime-startTime);
-}
+// function getTime(){
+//     alert(endTime-startTime);
+// }
