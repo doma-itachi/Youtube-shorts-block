@@ -1,4 +1,4 @@
-let _uribuf=null;
+let isEnable=true;
 
 //debug
 let startTime;
@@ -8,23 +8,37 @@ document.addEventListener("yt-navigate-start",function(event){
     //debug
     startTime=performance.now();
 
-    // console.log(event);
     let basURI=event.target.baseURI;
     let normalURI=uriCheck(basURI);
-    if(normalURI!==null){
-        // history.back();
-        // location=normalURI;
-        _uribuf=normalURI;
-        redirectOnSite();
+    if(normalURI!==null && isEnable){
+        history.back();
+        location=normalURI;
+
+        //debug
+        endTime=performance.now();
+        getTime();
     }
 });
+
+chrome.storage.onChanged.addListener(function(){
+    loadSettings();
+});
+
+//初期化
+loadSettings();
 
 //debug
 startTime=performance.now();
 
 let uri=uriCheck(location.href);
-// if(uri!==null)location=uri;
-if(uri!==null)redirect();
+
+if(uri!==null && isEnable){
+    location=uri;
+
+    //debug
+    endTime=performance.now();
+    getTime();
+}
 
 function uriCheck(_uri){
     let links=_uri.split("/");
@@ -35,30 +49,14 @@ function uriCheck(_uri){
     }
     return null;
 }
-function redirect(){
+function loadSettings(){
     chrome.storage.local.get("isEnable",function(value){
-        if(value.isEnable!==false){
-            location=uri;
-
-            //debug
-            endTime=performance.now();
-            getTime();
-        }
-    });
-}
-function redirectOnSite(){
-    chrome.storage.local.get("isEnable",function(value){
-        if(value.isEnable!==false){
-            history.back();
-            location=_uribuf;
-
-            //debug
-            endTime=performance.now();
-            getTime();
-        }
+        if(value.isEnable!==false)isEnable=true;
+        else isEnable=false;
     });
 }
 
+//debug
 function getTime(){
     alert(endTime-startTime);
 }
