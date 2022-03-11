@@ -17,6 +17,8 @@ header{
     display: grid;
     grid-template-columns: 40px auto;
     grid-template-rows: 25px auto;
+
+    color: rgb(70, 70, 70);
 }
 header>img{
     height: 40px;
