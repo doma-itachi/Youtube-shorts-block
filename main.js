@@ -1,5 +1,13 @@
 let _uribuf=null;
+
+//debug
+let startTime;
+let endTime;
+
 document.addEventListener("yt-navigate-start",function(event){
+    //debug
+    startTime=performance.now();
+
     // console.log(event);
     let basURI=event.target.baseURI;
     let normalURI=uriCheck(basURI);
@@ -10,6 +18,9 @@ document.addEventListener("yt-navigate-start",function(event){
         redirectOnSite();
     }
 });
+
+//debug
+startTime=performance.now();
 
 let uri=uriCheck(location.href);
 // if(uri!==null)location=uri;
@@ -26,8 +37,13 @@ function uriCheck(_uri){
 }
 function redirect(){
     chrome.storage.local.get("isEnable",function(value){
-        if(value.isEnable!==false)
+        if(value.isEnable!==false){
             location=uri;
+
+            //debug
+            endTime=performance.now();
+            getTime();
+        }
     });
 }
 function redirectOnSite(){
@@ -35,6 +51,14 @@ function redirectOnSite(){
         if(value.isEnable!==false){
             history.back();
             location=_uribuf;
+
+            //debug
+            endTime=performance.now();
+            getTime();
         }
     });
+}
+
+function getTime(){
+    alert(endTime-startTime);
 }

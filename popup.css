@@ -3,6 +3,7 @@
 }
 .cantSelectable{
     user-select: none;
+    -webkit-user-drag: none;
 }
 body{
     margin:0%;
@@ -101,4 +102,20 @@ header>p{
     margin-top: auto;
     margin-bottom:auto;
     margin-left: 4px;
+}
+
+#ghlink{
+    display: block;
+    position: absolute;
+    top: 5px;
+    left: calc(350px - 18px - 5px);
+    z-index: 1000;
+    /* transform: translateX(100%); */
+    width: 18px;
+    
+    opacity: 30%;
+    transition: opacity 0.2s;
+}
+#ghlink:hover{
+    opacity: 100%;
 }
