@@ -1,7 +1,8 @@
 # Youtube-short block
-Youtubeのショート動画を普通の動画として表示します。
+Youtubeのショート動画を普通の動画として表示します。  
+Play the Youtube shorts video as if it were a normal video.
 
-## 処理
+## How it Works?
 仕組みはシンプルで、  
 `youtube.com/shorts/"video_id"`  
 から、  
@@ -10,7 +11,8 @@ Youtubeのショート動画を普通の動画として表示します。
 
 ## よくある質問
 - 拡張機能が動作しない  
-一度、ページを再読み込みしてください。スクリプトが読み込まれます。
+一度、ページを再読み込みしてください。スクリプトが読み込まれます。  
+Reload the page once. The script will load.
 
 ## 寄稿 - Contribute
 プルリクエストを送信してください。  
