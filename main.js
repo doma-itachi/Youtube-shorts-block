@@ -51,8 +51,17 @@ function uriCheck(_uri){
 }
 function loadSettings(){
     chrome.storage.local.get("isEnable",function(value){
-        if(value.isEnable!==false)isEnable=true;
-        else isEnable=false;
+        if(value.isEnable!==false){
+            isEnable=true;
+        } else {
+            isEnable=false;
+        }
+
+        if(isEnable){
+            document.body.classList.add("youtube-short-block")
+        }else{
+            document.body.classList.remove("youtube-short-block")
+        }
     });
 }
 

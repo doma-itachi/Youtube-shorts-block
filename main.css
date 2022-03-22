@@ -1,0 +1,4 @@
+.youtube-short-block a[title='Shorts']{
+    display: none !important;
+    pointer-events: none !important;
+}

@@ -16,7 +16,8 @@
         {
             "matches": ["*://*.youtube.com/*"],
             "all_frames": true,
-            "js": ["main.js"]
+            "js": ["main.js"],
+            "css": ["main.css"]
         }
     ],
     "action": {
