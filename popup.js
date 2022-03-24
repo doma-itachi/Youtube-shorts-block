@@ -63,8 +63,6 @@ window.onload=function(){
     //setting event
     document.querySelectorAll(".settings_column>input").forEach(function(element){
         element.addEventListener("input", function(e){
-            console.log(e.target.checked);
-            console.log(e.target.id);
             switch(e.target.id){
                 case "hideShortTabInput":
                     

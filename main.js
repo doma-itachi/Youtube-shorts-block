@@ -1,22 +1,13 @@
 let isEnable=true;
-
-//debug
-// let startTime;
-// let endTime;
+let isHideTabs=true;
+let isHideVideos=true;
 
 document.addEventListener("yt-navigate-start",function(event){
-    //debug
-    // startTime=performance.now();
-
     let basURI=event.target.baseURI;
     let normalURI=uriCheck(basURI);
     if(normalURI!==null && isEnable){
         history.back();
         location=normalURI;
-
-        //debug
-        // endTime=performance.now();
-        // getTime();
     }
 });
 
@@ -27,17 +18,10 @@ chrome.storage.onChanged.addListener(function(){
 //初期化
 loadSettings();
 
-//debug
-// startTime=performance.now();
-
 let uri=uriCheck(location.href);
 
 if(uri!==null && isEnable){
     location=uri;
-
-    //debug
-    // endTime=performance.now();
-    // getTime();
 }
 
 function uriCheck(_uri){
@@ -50,7 +34,7 @@ function uriCheck(_uri){
     return null;
 }
 function loadSettings(){
-    chrome.storage.local.get("isEnable",function(value){
+    chrome.storage.local.get(null, function(value){
         if(value.isEnable!==false){
             isEnable=true;
         } else {
@@ -65,7 +49,16 @@ function loadSettings(){
     });
 }
 
-//debug
-// function getTime(){
-//     alert(endTime-startTime);
-// }
+document.addEventListener("yt-navigate-finish",function(e){
+    removeShortVideo();
+});
+
+function removeShortVideo(){
+    let videoArray=document.querySelectorAll("ytd-video-renderer ytd-thumbnail a, ytd-grid-video-renderer ytd-thumbnail a");
+    console.log(videoArray[0].href);
+    videoArray.forEach(e=>{
+        if(e.href.indexOf("shrots")!=-1)
+            console.log("ショート");
+            else{console.log("ショートじゃない")}
+    });
+}
