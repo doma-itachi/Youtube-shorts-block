@@ -1,6 +1,7 @@
 # Youtube-short block
 Youtubeのショート動画を普通の動画として表示します。  
 Play the Youtube shorts video as if it were a normal video.
+將Youtube上的Short影片改為一般的影片播放
 
 ## How it Works?
 仕組みはシンプルで、  
@@ -13,6 +14,7 @@ Play the Youtube shorts video as if it were a normal video.
 - 拡張機能が動作しない  
 一度、ページを再読み込みしてください。スクリプトが読み込まれます。  
 Reload the page once. The script will load.
+程式安裝後需先重新載入一次才會執行
 
 ## 寄稿 - Contribute
 プルリクエストを送信してください。  
