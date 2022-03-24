@@ -9,7 +9,9 @@ body{
     margin:0%;
     /* border: 1px solid gray; */
     width: 350px;
+    height: 100px;
     min-width: 300px;
+    transition: var(--moreAnimationDuration);
 }
 header{
     margin: 10px;
@@ -17,7 +19,9 @@ header{
     display: grid;
     grid-template-columns: 40px auto;
     grid-template-rows: 25px auto;
-
+    overflow: hidden;
+    height: 59px;
+    transition: var(--moreAnimationDuration);
     color: rgb(70, 70, 70);
 }
 header>img{
@@ -56,21 +60,28 @@ header>p{
     border-top: 1px solid #dedede;
     background-color: #f7f7f7;
     height: 30px;
+    transition: var(--moreAnimationDuration);
 }
 #content>#version{
     margin: 0;
     color: #3d3d3d;
     text-align: right;
-    margin-top: auto;
+    /* margin-top: auto;
     margin-right: 1px;
-    margin-bottom: 1px;
+    margin-bottom: 1px; */
+    position: absolute;
+    right: 1px;
+    bottom: 1px;
     height: auto;
+
+    transition: var(--moreAnimationDuration);
 }
 
 :root{
     --toggleButtonColor: #cfcfcf;
     --toggleAnimDuring: 90ms;
     --toggleButtonHeight:15px;
+    --moreAnimationDuration:0.5s;
 }
 
 #toggle_wrap{
@@ -105,19 +116,95 @@ header>p{
     margin-bottom:auto;
     margin-left: 4px;
 }
-
-#ghlink{
+#more_icon{
     display: block;
     position: absolute;
     top: 5px;
     left: calc(350px - 18px - 5px);
     z-index: 1000;
-    /* transform: translateX(100%); */
-    width: 18px;
-    
-    opacity: 30%;
-    transition: opacity 0.2s;
+    height: 18px;
 }
-#ghlink:hover{
+
+#more_icon>img{
+    width: 18px;
+    transition: opacity 0.2s, transform 0.4s;
+    position: absolute;
+}
+#ghlink{
+    visibility: hidden;
+    position: absolute;
+    top: 4px;
+    left: calc(350px - 18px * 2 - 5px * 2);
+    width: 18px;
+    opacity: 0%;
+    transition: var(--moreAnimationDuration);
+}
+#more_icon >#more{
+    transform:rotateZ(90deg);
+    opacity: 30%;
+}
+#more_icon > #close{
+    transform: rotateZ(0deg);
+    opacity: 0%;
+}
+#more_icon:hover>#more{
     opacity: 100%;
+}
+#more_checkbox{
+    display: none;
+}
+#more_checkbox:checked~#more_icon>#more{
+    opacity: 0%;
+}
+#more_checkbox:checked~#more_icon>#close{
+    opacity: 30%;
+}
+#more_checkbox:checked~#more_icon>#close:hover{
+    opacity: 100%;
+}
+#more_checkbox:checked~#more_icon>img{
+    transform: rotateZ(180deg);
+}
+#more_checkbox:checked~#ghlink{
+    visibility:visible;
+    opacity: 30%;
+}
+#more_checkbox:checked~#ghlink:hover{
+    opacity: 100%;
+}
+#more_checkbox:checked~header{
+    height: 0px;
+    margin-top: 0px;
+}
+#more_checkbox:checked~#content{
+    border-top: 0px solid #dedede;
+    margin-top: 0px;
+    height: inherit;
+    grid-template-rows: 30px 1fr 30px;
+}
+
+#settings{
+    display: none;
+    overflow: hidden;
+    grid-column: 1/3;
+    grid-row: 2;
+    margin-left: 4px;
+}
+#more_checkbox:checked~#content>#settings{
+    display: block;
+}
+
+#more_wrapper{
+    top: 0px;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    /* background-color: white; */
+}
+.settings_column{
+    height: 20px;
+}
+.settings_column>input, .settings_column>label{
+    vertical-align: middle;
+    font-size: 14px;
 }

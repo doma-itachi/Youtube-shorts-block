@@ -1,3 +1,5 @@
 {
-    "ext_desc":{"message": "Play the Youtube shorts video as if it were a normal video."}
+    "ext_desc":{"message": "Play the Youtube shorts video as if it were a normal video."},
+    "cfg_hide_tab":{"message": "hide \"shorts\" tab(left menu)"},
+    "cfg_hide_video":{"message": "hide shorts video"}
 }

@@ -8,7 +8,14 @@
         <link href="popup.css" rel="stylesheet">
     </head>
     <body>
-        <img id="ghlink" class="cantSelectable" src="./icons/github.svg" title="GitHub">
+        <input type="checkbox" id="more_checkbox">
+
+        <img id="ghlink" src="./icons/github.svg" title="GitHub">
+        <div id="more_icon">
+            <img id="more" class="cantSelectable" src="./icons/more.svg">
+            <img id="close" class="cantSelectable" src="./icons/close.svg">
+        </div>
+        
         <header>
             <img id="logo" class="cantSelectable" src="./icons/icon.svg" enabled>
             <h1 class="cantSelectable">Youtube-shorts block</h1>
@@ -16,17 +23,23 @@
         </header>
 
         <div id="content">
-            <!-- <button id="btn_repo">Github</button> -->
             <div id="toggle_wrap">
                 <div id="toggle_circle">
 
                 </div>
             </div>
             <p id="version" class="cantSelectable">v.</p>
+            <div id="settings">
+                <div class="settings_column">
+                    <input id="hideShortTabInput" type="checkbox">
+                    <label for="hideShortTabInput" class="cantSelectable">左メニューの"ショート"タブを非表示</label>
+                </div>
+                <div class="settings_column">
+                    <input id="hideShortVideoInput" type="checkbox">
+                    <label for="hideShortVideoInput" class="cantSelectable">ショート動画を非表示</label>
+                </div>
+            </div>
         </div>
-
-        
-
         <script src="popup.js"></script>
     </body>
 </html>

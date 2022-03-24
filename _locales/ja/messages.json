@@ -1,3 +1,5 @@
 {
-    "ext_desc":{"message": "Youtubeのショート動画を普通の動画として表示します。"}
+    "ext_desc":{"message": "Youtubeのショート動画を普通の動画として表示します。"},
+    "cfg_hide_tab":{"message": "左メニューの\"ショート\"タブを非表示"},
+    "cfg_hide_video":{"message": "ショート動画を非表示"}
 }
