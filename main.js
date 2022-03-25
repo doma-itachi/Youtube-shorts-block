@@ -57,10 +57,11 @@ function loadSettings(){
         }else{
             isHideTabs=false;
         }
+        
         if(isHideTabs){
-            document.body.classList.add("youtube-short-block");
+            document.body.classList.add("youtube-shorts-block");
         }else{
-            document.body.classList.remove("youtube-short-block");
+            document.body.classList.remove("youtube-shorts-block");
         }
     });
 }
@@ -71,6 +72,10 @@ function observeShorts(){
         //---警告--- この機能は頻繁に呼び出されており、パフォーマンスに影響があることが考えられます！プルリクエストを！
         observer=new MutationObserver(removeShortVideo);
         observer.observe(document.getElementById("content"), {childList:true, subtree:true});
+    }
+    if(observer!==null && (isEnable===false || isHideVideos===false)){
+        observer.disconnect();
+        observer=null;
     }
 }
 

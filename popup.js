@@ -1,18 +1,8 @@
 let _isEnable;
 let _isHideTabs;
 let _isHideVideos;
-window.onload=function(){
-    // chrome.storage.local.get("isEnable", function(value){
-    //     if(value.isEnable===false){
-    //         _isEnable=false;
-    //         setToggleAttr(false);
-    //     }
-    //     else{
-    //         _isEnable=true;
-    //         setToggleAttr(true);
-    //     }
-    // });
 
+window.onload=function(){
     chrome.storage.local.get(null, function(value){
         //isEnable
         if(value.isEnable===false){
@@ -70,7 +60,6 @@ window.onload=function(){
         element.addEventListener("input", function(e){
             switch(e.target.id){
                 case "hideShortTabInput":
-                    
                     chrome.storage.local.set({isHideTabs:e.target.checked});
                     break;
 

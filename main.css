@@ -1,4 +1,4 @@
-.youtube-short-block a[title='Shorts'], .youtube-short-block a[title='ショート']{
+.youtube-shorts-block a[title='Shorts'], .youtube-shorts-block a[title='ショート']{
     display: none !important;
     pointer-events: none !important;
 }

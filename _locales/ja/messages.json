@@ -3,7 +3,7 @@
     "cfg_hide_tab":{"message": "左メニューの\"ショート\"タブを非表示"},
     "cfg_hide_video":{"message": "ショート動画を非表示"},
     "cfg_warn_col":{"message": "警告！"},
-    "cfg_warn_msg":{"message": "動作に影響を与える可能性があります！"},
+    "cfg_warn_msg":{"message": " 動作に影響を与える可能性があります！"},
     "cfg_warn_fb":{"message": "フィードバック"},
     "cfg_warn_or":{"message": "または"},
     "cfg_warn_pr":{"message": "プルリクエスト"}
