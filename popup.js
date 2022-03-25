@@ -3,7 +3,7 @@ let _isHideTabs;
 let _isHideVideos;
 
 window.onload=function(){
-    chrome.storage.local.get(null, function(value){
+    browser.storage.local.get(null, function(value){
         //isEnable
         if(value.isEnable===false){
             _isEnable=false;
@@ -51,7 +51,7 @@ window.onload=function(){
     document.getElementById("ghlink").addEventListener("click",function(){window.open("https://github.com/doma-itachi/Youtube-shorts-block","_blank")});
     document.getElementById("toggle_wrap").addEventListener("click",function(){
             _isEnable=!_isEnable;
-            chrome.storage.local.set({isEnable:_isEnable});
+            browser.storage.local.set({isEnable:_isEnable});
             setToggleAttr(_isEnable);
     });
 
@@ -60,11 +60,11 @@ window.onload=function(){
         element.addEventListener("input", function(e){
             switch(e.target.id){
                 case "hideShortTabInput":
-                    chrome.storage.local.set({isHideTabs:e.target.checked});
+                    browser.storage.local.set({isHideTabs:e.target.checked});
                     break;
 
                 case "hideShortVideoInput":
-                    chrome.storage.local.set({isHideVideos:e.target.checked});
+                    browser.storage.local.set({isHideVideos:e.target.checked});
                     break;
             }
         });
@@ -72,10 +72,10 @@ window.onload=function(){
 };
 
 function setToggleAttr(bool){
-    if(bool) chrome.action.setIcon({path:{"32":"icons/icon32.png","64":"icons/icon64.png","128":"icons/icon128.png"}});
-    else chrome.action.setIcon({path:{"32":"icons/icon32_disabled.png","64":"icons/icon64_disabled.png","128":"icons/icon128_disabled.png"}});
+    if(bool) browser.browserAction.setIcon({path:{"32":"icons/icon32.png","64":"icons/icon64.png","128":"icons/icon128.png"}});
+    else browser.browserAction.setIcon({path:{"32":"icons/icon32_disabled.png","64":"icons/icon64_disabled.png","128":"icons/icon128_disabled.png"}});
 
-    document.getElementById("logo").setAttribute("enabled",bool)
+    document.getElementById("logo").setAttribute("enabled",bool);
     document.getElementById("toggle_wrap").setAttribute("checked", bool);
     document.getElementById("toggle_circle").setAttribute("checked",bool);
 }

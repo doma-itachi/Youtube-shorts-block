@@ -1,5 +1,5 @@
 {
-    "manifest_version": 3,
+    "manifest_version": 2,
     "name": "Youtube-shorts block",
     "version": "1.2.0",
     "description": "__MSG_ext_desc__",
@@ -20,7 +20,7 @@
             "css": ["main.css"]
         }
     ],
-    "action": {
+    "browser_action": {
         "default_icon":{
             "16":"icons/icon32.png",
             "48":"icons/icon64.png",

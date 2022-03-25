@@ -6,6 +6,7 @@
     -webkit-user-drag: none;
 }
 body{
+    overflow: hidden;
     margin:0%;
     /* border: 1px solid gray; */
     width: 350px;
@@ -51,7 +52,9 @@ header>p{
     grid-row: 2;
     margin-left: 8px;
 }
-
+#description{
+    font-size: 12px;
+}
 #content{
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -68,9 +71,7 @@ header>p{
     margin: 0;
     color: #3d3d3d;
     text-align: right;
-    /* margin-top: auto;
-    margin-right: 1px;
-    margin-bottom: 1px; */
+    font-size: 12px;
     position: absolute;
     right: 1px;
     bottom: 1px;
