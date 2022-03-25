@@ -1,5 +1,10 @@
 {
     "ext_desc":{"message": "Play the Youtube shorts video as if it were a normal video."},
     "cfg_hide_tab":{"message": "hide \"shorts\" tab(left menu)"},
-    "cfg_hide_video":{"message": "hide shorts video"}
+    "cfg_hide_video":{"message": "hide shorts video"},
+    "cfg_warn_col":{"message": "Warning!"},
+    "cfg_warn_msg":{"message": "May not work properly!"},
+    "cfg_warn_fb":{"message": "Feedback"},
+    "cfg_warn_or":{"message": "or"},
+    "cfg_warn_pr":{"message": "Pull request"}
 }

@@ -9,13 +9,15 @@ body{
     margin:0%;
     /* border: 1px solid gray; */
     width: 350px;
-    height: 100px;
+    height: 110px;
     min-width: 300px;
     transition: var(--moreAnimationDuration);
 }
 header{
     margin: 10px;
+    margin-top: 0px;
     margin-bottom: 0px;
+    padding-top: 10px;
     display: grid;
     grid-template-columns: 40px auto;
     grid-template-rows: 25px auto;
@@ -141,7 +143,7 @@ header>p{
 }
 #more_icon >#more{
     transform:rotateZ(90deg);
-    opacity: 30%;
+    opacity: 50%;
 }
 #more_icon > #close{
     transform: rotateZ(0deg);
@@ -157,7 +159,7 @@ header>p{
     opacity: 0%;
 }
 #more_checkbox:checked~#more_icon>#close{
-    opacity: 30%;
+    opacity: 50%;
 }
 #more_checkbox:checked~#more_icon>#close:hover{
     opacity: 100%;
@@ -167,20 +169,20 @@ header>p{
 }
 #more_checkbox:checked~#ghlink{
     visibility:visible;
-    opacity: 30%;
+    opacity: 50%;
 }
 #more_checkbox:checked~#ghlink:hover{
     opacity: 100%;
 }
 #more_checkbox:checked~header{
     height: 0px;
-    margin-top: 0px;
+    padding-top: 0px;
 }
 #more_checkbox:checked~#content{
     border-top: 0px solid #dedede;
     margin-top: 0px;
     height: inherit;
-    grid-template-rows: 30px 1fr 30px;
+    grid-template-rows: 30px 1fr;
 }
 
 #settings{
@@ -203,8 +205,15 @@ header>p{
 }
 .settings_column{
     height: 20px;
+    font-size: 12px;
 }
 .settings_column>input, .settings_column>label{
     vertical-align: middle;
     font-size: 14px;
+}
+#warn_col{
+    color: crimson;
+}
+.warn_msg_cmn{
+    display: inline;
 }

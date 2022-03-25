@@ -47,6 +47,11 @@ window.onload=function(){
     document.getElementById("description").innerHTML=chrome.i18n.getMessage("ext_desc");
     document.querySelector("#hideShortTabInput + label").innerHTML=chrome.i18n.getMessage("cfg_hide_tab");
     document.querySelector("#hideShortVideoInput + label").innerHTML=chrome.i18n.getMessage("cfg_hide_video");
+    document.getElementById("warn_col").innerHTML=chrome.i18n.getMessage("cfg_warn_col");
+    document.getElementById("warn_msg").innerHTML=chrome.i18n.getMessage("cfg_warn_msg");
+    document.getElementById("warn_fb").innerHTML=chrome.i18n.getMessage("cfg_warn_fb");
+    document.getElementById("warn_or").innerHTML=chrome.i18n.getMessage("cfg_warn_or");
+    document.getElementById("warn_pr").innerHTML=chrome.i18n.getMessage("cfg_warn_pr");
 
     document.getElementById("version").innerHTML="v"+chrome.runtime.getManifest().version;
     document.getElementById("more_icon").addEventListener("click", function(){
@@ -75,8 +80,8 @@ window.onload=function(){
             }
         });
     });
-
 };
+
 function setToggleAttr(bool){
     if(bool) chrome.action.setIcon({path:{"32":"icons/icon32.png","64":"icons/icon64.png","128":"icons/icon128.png"}});
     else chrome.action.setIcon({path:{"32":"icons/icon32_disabled.png","64":"icons/icon64_disabled.png","128":"icons/icon128_disabled.png"}});

@@ -1,6 +1,6 @@
 let isEnable=true;
-let isHideTabs=true;
-let isHideVideos=true;
+let isHideTabs=false;
+let isHideVideos=false;
 
 document.addEventListener("yt-navigate-start",function(event){
     let basURI=event.target.baseURI;
@@ -35,30 +35,56 @@ function uriCheck(_uri){
 }
 function loadSettings(){
     chrome.storage.local.get(null, function(value){
+        //有効/無効
         if(value.isEnable!==false){
             isEnable=true;
         } else {
             isEnable=false;
         }
 
-        if(isEnable){
-            document.body.classList.add("youtube-short-block")
+        //ビデオを非表示
+        if(value.isHideVideos===true){
+            isHideVideos=true;
         }else{
-            document.body.classList.remove("youtube-short-block")
+            isHideVideos=false;
+        }
+        observeShorts();
+
+        if(value.isHideTabs===true){
+            isHideTabs=true;
+        }else{
+            isHideTabs=false;
+        }
+        if(isHideTabs){
+            document.body.classList.add("youtube-short-block");
+        }else{
+            document.body.classList.remove("youtube-short-block");
         }
     });
 }
 
-document.addEventListener("yt-navigate-finish",function(e){
-    removeShortVideo();
-});
+function observeShorts(){
+    if(isEnable && isHideVideos){
+        //---Warning--- This function is called so often that it could be affecting performance! Please "pull request"!
+        //---警告--- この機能は頻繁に呼び出されており、パフォーマンスに影響があることが考えられます！プルリクエストを！
+        let observer=new MutationObserver(removeShortVideo);
+        observer.observe(document.getElementById("content"), {childList:true, subtree:true});
+    }
+}
 
 function removeShortVideo(){
     let videoArray=document.querySelectorAll("ytd-video-renderer ytd-thumbnail a, ytd-grid-video-renderer ytd-thumbnail a");
-    console.log(videoArray[0].href);
+    console.log(videoArray.length);
     videoArray.forEach(e=>{
-        if(e.href.indexOf("shrots")!=-1)
-            console.log("ショート");
-            else{console.log("ショートじゃない")}
+        if(e.href.indexOf("shorts")!=-1){
+            let x=e.parentNode;
+            console.log("shorts founded");
+            while(true){
+                if(x.tagName=="YTD-VIDEO-RENDERER" || x.tagName=="YTD-GRID-VIDEO-RENDERER"){x.remove();break;}
+                if(x)
+                x=x.parentNode;
+                if(x===null)break;
+            }
+        }
     });
 }
