@@ -2,6 +2,8 @@ let isEnable=true;
 let isHideTabs=false;
 let isHideVideos=false;
 
+let observer=null;
+
 document.addEventListener("yt-navigate-start",function(event){
     let basURI=event.target.baseURI;
     let normalURI=uriCheck(basURI);
@@ -64,21 +66,20 @@ function loadSettings(){
 }
 
 function observeShorts(){
-    if(isEnable && isHideVideos){
+    if(observer===null && isEnable && isHideVideos){
         //---Warning--- This function is called so often that it could be affecting performance! Please "pull request"!
         //---警告--- この機能は頻繁に呼び出されており、パフォーマンスに影響があることが考えられます！プルリクエストを！
-        let observer=new MutationObserver(removeShortVideo);
+        observer=new MutationObserver(removeShortVideo);
         observer.observe(document.getElementById("content"), {childList:true, subtree:true});
     }
 }
 
 function removeShortVideo(){
+    //please improve it anyone
     let videoArray=document.querySelectorAll("ytd-video-renderer ytd-thumbnail a, ytd-grid-video-renderer ytd-thumbnail a");
-    console.log(videoArray.length);
     videoArray.forEach(e=>{
         if(e.href.indexOf("shorts")!=-1){
             let x=e.parentNode;
-            console.log("shorts founded");
             while(true){
                 if(x.tagName=="YTD-VIDEO-RENDERER" || x.tagName=="YTD-GRID-VIDEO-RENDERER"){x.remove();break;}
                 if(x)

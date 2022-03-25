@@ -217,3 +217,7 @@ header>p{
 .warn_msg_cmn{
     display: inline;
 }
+
+#warn>a{
+    color: #1870f0;
+}

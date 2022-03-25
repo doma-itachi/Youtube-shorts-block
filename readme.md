@@ -1,6 +1,6 @@
 # Youtube-short block
 Youtubeのショート動画を普通の動画として表示します。  
-Play the Youtube shorts video as if it were a normal video.
+Play the Youtube shorts video as if it were a normal video.  
 將Youtube上的Short影片改為一般的影片播放
 
 ## How it Works?
