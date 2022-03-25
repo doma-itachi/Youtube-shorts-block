@@ -5,8 +5,8 @@
     "description": "__MSG_ext_desc__",
     "default_locale": "en",
     "icons":{
-        "16":"icons/icon32.png",
-        "48":"icons/icon64.png",
+        "32":"icons/icon32.png",
+        "64":"icons/icon64.png",
         "128":"icons/icon128.png"
     },
     "permissions":[
@@ -22,8 +22,8 @@
     ],
     "browser_action": {
         "default_icon":{
-            "16":"icons/icon32.png",
-            "48":"icons/icon64.png",
+            "32":"icons/icon32.png",
+            "64":"icons/icon64.png",
             "128":"icons/icon128.png"
         },
         "default_title": "Youtube-shorts block",
