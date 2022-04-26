@@ -4,7 +4,7 @@ Youtube-shorts block
 ![License](https://img.shields.io/github/license/doma-itachi/Youtube-shorts-block)
 ![ChromeWebStoreUsers](https://img.shields.io/chrome-web-store/users/jiaopdjbehhjgokpphdfgmapkobbnmjp)
 ====
-Readme (English, <a href="" target="_blank">日本語版</a>)  
+Readme (English, <a href="https://github.com/doma-itachi/Youtube-shorts-block/blob/master/readme_ja.md" target="_blank">日本語版</a>)  
 
 ## Description
 Play the Youtube shorts video as if it were a normal video.  

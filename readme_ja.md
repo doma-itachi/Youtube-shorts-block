@@ -4,7 +4,7 @@ Youtube-shorts block
 ![License](https://img.shields.io/github/license/doma-itachi/Youtube-shorts-block)
 ![ChromeWebStoreUsers](https://img.shields.io/chrome-web-store/users/jiaopdjbehhjgokpphdfgmapkobbnmjp)
 ====
-Readme (<a href="" target="_blank">English</a>, 日本語版)  
+Readme (<a href="https://github.com/doma-itachi/Youtube-shorts-block" target="_blank">English</a>, 日本語版)  
 
 ## 概要
 Youtubeのショート動画を普通の動画として表示します。  
