@@ -1,29 +1,35 @@
-# Youtube-shorts block
-Youtubeのショート動画を普通の動画として表示します。  
+Youtube-shorts block
+![ChromeWebStoreVersion](https://img.shields.io/chrome-web-store/v/jiaopdjbehhjgokpphdfgmapkobbnmjp)
+![MozillaAddon](https://img.shields.io/amo/v/youtube-shorts-block)
+![License](https://img.shields.io/github/license/doma-itachi/Youtube-shorts-block)
+![ChromeWebStoreUsers](https://img.shields.io/chrome-web-store/users/jiaopdjbehhjgokpphdfgmapkobbnmjp)
+====
+Readme (English, <a href="" target="_blank">日本語版</a>)  
+
+## Description
 Play the Youtube shorts video as if it were a normal video.  
-將Youtube上的Short影片改為一般的影片播放
+And hide "shorts" tab from the left menu. (optional)  
 
-## How it Works?
-仕組みはシンプルで、  
-`youtube.com/shorts/"video_id"`  
-から、  
-`youtube.com/watch?v="video_id"`  
-へ自動的にURLを書き換えます。
+`youtube.com/shorts/"video_id" → youtube.com/watch?v="video_id"`
 
-## よくある質問
-- 拡張機能が動作しない  
-一度、ページを再読み込みしてください。スクリプトが読み込まれます。  
-Reload the page once. The script will load.
-程式安裝後需先重新載入一次才會執行
+## Installation
+- <a href="https://chrome.google.com/webstore/detail/youtube-shorts-block/jiaopdjbehhjgokpphdfgmapkobbnmjp" target="_blank">For Chrome (or other chromium based browsers)</a>
 
-## 寄稿 - Contribute
-プルリクエストを送信してください。  
-Please send pull request.
+- <a href="https://addons.mozilla.org/ja/firefox/addon/youtube-shorts-block/" target="_blank">For Firefox</a>  
+  - Due to Firefox limitations, autoplay is disabled by default, so please set "Allow Audio and Video" to autoplay.
 
-## 作者
+`Please reload the page once after installation`
+
+## Contribution
+1. Fork it ( https://github.com/doma-itachi/Youtube-shorts-block )
+2. Change sources and commit ( git commit -m "Add some feature" )
+3. Push to the branch ( git push origin master )
+4. Create new Pull Request
+
+## Author
 土間いたち @itachi_yukari  
-バグ報告や要望等はDMまでお願いします
+Please send bug reports and requests to DM or <a href="https://chrome.google.com/webstore/detail/youtube-shorts-block/jiaopdjbehhjgokpphdfgmapkobbnmjp" target="_blank">WebStore</a>
 
-## ライセンス
+## License
 Copyright (c) 2022 土間いたち  
-このプロジェクトはMITライセンスの下で公開されています
+This project is released under the MIT license
