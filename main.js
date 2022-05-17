@@ -3,6 +3,7 @@ let isHideTabs=false;
 let isHideVideos=false;
 
 let observer=null;
+const defaultSelector = `div#contents.style-scope.ytd-section-list-renderer`
 const videoGridSelector = `div#items.style-scope.ytd-grid-renderer`
 const recommendedListSelector = `#contents.style-scope.ytd-item-section-renderer`
 
@@ -32,7 +33,7 @@ document.addEventListener("yt-navigate-start",function(event){
         history.back();
         location=normalURI;
     }
-    observeShorts()
+    attachRelevantObservers(basURI)
 });
 
 chrome.storage.onChanged.addListener(function(){
@@ -88,17 +89,48 @@ function loadSettings(){
     });
 }
 
+const attachObserver = (selector) => {
+    if(observer){
+        waitForElement(selector, () => {
+            observer.observe(document.querySelector(selector), {childList:true, subtree:true})
+        }, undefined, 10000)
+    }
+}
+
+const attachAllObservers = () => {
+    attachObserver(defaultSelector)
+    attachAllObservers(videoGridSelector)
+    attachAllObservers(recommendedListSelector)
+}
+
+const attachRelevantObservers = (basURI) => {
+    // Only attach relevant observers depending on page
+    if(observer){
+        observer.disconnect()
+    }
+    if(basURI.includes('shorts') || basURI.includes('watch')){
+        // Watch Page
+        attachObserver(recommendedListSelector)
+    }
+    if(basURI.includes('/videos') && basURI.includes('/c/')){
+        // Channel Videos Page
+        attachObserver(videoGridSelector)
+    }
+    if(basURI.includes('/feed/subscriptions')                   // Subscriptions Page
+    || (basURI.includes('/c/') && basURI.includes('/featured')) // Main Channel Page
+    || basURI.includes('results')                               // Search Results Page
+    || basURI.includes('playlist')                              // Playlist Page
+    ){
+        attachObserver(defaultSelector)
+    }
+}
+
 function observeShorts(){
     if(observer===null && isEnable && isHideVideos){
         //---Warning--- This function is called so often that it could be affecting performance! Please "pull request"!
         //---警告--- この機能は頻繁に呼び出されており、パフォーマンスに影響があることが考えられます！プルリクエストを！
         observer=new MutationObserver(removeShortVideo);
-        waitForElement(videoGridSelector, () => {
-            observer.observe(document.querySelector(videoGridSelector), {childList:true, subtree:true})
-        }, undefined, 10000)
-        waitForElement(recommendedListSelector, () => {
-            observer.observe(document.querySelector(recommendedListSelector), {childList:true, subtree:true})
-        }, undefined, 10000)
+        attachRelevantObservers(window.location.href)
     }
     if(observer!==null && (isEnable===false || isHideVideos===false)){
         observer.disconnect();
