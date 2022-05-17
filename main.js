@@ -5,7 +5,7 @@ let isHideVideos=false;
 let observer=null;
 const defaultSelector = `div#contents.style-scope.ytd-section-list-renderer`
 const videoGridSelector = `div#items.style-scope.ytd-grid-renderer`
-const recommendedListSelector = `#contents.style-scope.ytd-item-section-renderer`
+const recommendedListSelector = `#related.style-scope.ytd-watch-flexy`
 
 // https://stackoverflow.com/posts/29754070/revisions
 const waitForElement = (selector, callback, checkFrequencyInMs, timeoutInMs) => {
@@ -70,6 +70,7 @@ function loadSettings(){
 const attachObserver = (selector) => {
     if(observer){
         waitForElement(selector, () => {
+            removeShortVideo()
             observer.observe(document.querySelector(selector), {childList:true, subtree:true})
         }, undefined, 10000)
     }
@@ -93,7 +94,7 @@ const attachRelevantObservers = (basURI) => {
         // Watch Page
         attachObserver(recommendedListSelector)
     }
-    if(basURI.includes('/videos') && basURI.includes('/c/')){
+    if(basURI.includes('/videos') && (basURI.includes('/c/') || basURI.includes('/channel/'))){
         // Channel Videos Page
         attachObserver(videoGridSelector)
     }
@@ -119,7 +120,31 @@ function observeShorts(){
     }
 }
 
-function removeShortVideo(){
+function removeShortVideo(mutations){
+    if(mutations){
+        // For performance, check if the mutation actually involved the insertion of 
+        // new elements, otherwise dont do anything
+        let elementsChanged = false
+        for(const m of mutations){
+            if(m.type === 'childList' && m.addedNodes.length){
+                const validNewElements = [
+                    'YTD-ITEM-SECTION-RENDERER', // Item Sections
+                    'YTD-GRID-VIDEO-RENDERER',   // New Video Items
+                    'YTD-COMPACT-VIDEO-RENDERER' // Recommended Video Items
+                ]
+                for(const node of m.addedNodes){
+                    if(validNewElements.includes(node.nodeName)){
+                        elementsChanged = true
+                        break
+                    }
+                }
+            }
+        }
+        if(elementsChanged === false){
+            return
+        }
+    }
+
     let videoArray=document.querySelectorAll("ytd-video-renderer ytd-thumbnail a, ytd-grid-video-renderer ytd-thumbnail a");
     videoArray.forEach(e=>{
         if(e.href.indexOf("shorts")!=-1){
