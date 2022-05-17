@@ -9,7 +9,7 @@ const recommendedListSelector = `#contents.style-scope.ytd-item-section-renderer
 
 // https://stackoverflow.com/posts/29754070/revisions
 const waitForElement = (selector, callback, checkFrequencyInMs, timeoutInMs) => {
-    var startTimeInMs = Date.now();
+    const startTimeInMs = Date.now();
     const loopSearch = () => {
       if (document.querySelector(selector) != null) {
         callback();
@@ -24,29 +24,6 @@ const waitForElement = (selector, callback, checkFrequencyInMs, timeoutInMs) => 
       }
     }
     loopSearch();
-  }
-
-document.addEventListener("yt-navigate-start",function(event){
-    let basURI=event.target.baseURI;
-    let normalURI=uriCheck(basURI);
-    if(normalURI!==null && isEnable){
-        history.back();
-        location=normalURI;
-    }
-    attachRelevantObservers(basURI)
-});
-
-chrome.storage.onChanged.addListener(function(){
-    loadSettings();
-});
-
-//初期化
-loadSettings();
-
-let uri=uriCheck(location.href);
-
-if(uri!==null && isEnable){
-    location=uri;
 }
 
 function uriCheck(_uri){
@@ -58,6 +35,7 @@ function uriCheck(_uri){
     }
     return null;
 }
+
 function loadSettings(){
     chrome.storage.local.get(null, function(value){
         //有効/無効
@@ -98,6 +76,9 @@ const attachObserver = (selector) => {
 }
 
 const attachAllObservers = () => {
+    if(observer){
+        observer.disconnect()
+    }
     attachObserver(defaultSelector)
     attachAllObservers(videoGridSelector)
     attachAllObservers(recommendedListSelector)
@@ -161,4 +142,25 @@ function removeShortVideo(){
         }
     }
     return
+}
+
+document.addEventListener("yt-navigate-start",function(event){
+    let basURI=event.target.baseURI;
+    let normalURI=uriCheck(basURI);
+    if(normalURI!==null && isEnable){
+        history.back();
+        location=normalURI;
+    }
+    attachRelevantObservers(basURI)
+});
+
+chrome.storage.onChanged.addListener(function(){
+    loadSettings();
+});
+
+//初期化
+loadSettings();
+let uri=uriCheck(location.href);
+if(uri!==null && isEnable){
+    location=uri;
 }
