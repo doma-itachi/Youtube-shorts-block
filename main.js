@@ -123,12 +123,9 @@ function removeShortVideo(){
     // Remove persisting spinner dividers
     const spinnerDividers = Array.from(document.querySelectorAll('ytd-continuation-item-renderer'))
     for(const sD of spinnerDividers){
-        // Remove any spinning dividers after videos have loaded under them (they have a sibling element),
-        // if not its likely the final spinner, so remove it after 5 seconds.
+        // Remove any spinning dividers after videos have loaded under them (they have a sibling element)
         if(sD.nextElementSibling){
             sD.remove()
-        }else{
-            setTimeout(() => sD.remove(), 5000)
         }
     }
     return
