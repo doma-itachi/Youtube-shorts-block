@@ -93,4 +93,13 @@ function removeShortVideo(){
             }
         }
     });
+
+    // Remove persisting spinner dividers
+    const spinnerDividers = Array.from(document.querySelectorAll('ytd-continuation-item-renderer'))
+    for(const sD of spinnerDividers){
+        // Wait until videos have loaded under the spinner divider and remove it to fix the layout
+        if(sD.nextElementSibling){
+            sD.remove()
+        }
+    }
 }
