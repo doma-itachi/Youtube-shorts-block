@@ -3,6 +3,27 @@ let isHideTabs=false;
 let isHideVideos=false;
 
 let observer=null;
+const videoGridSelector = `div#items.style-scope.ytd-grid-renderer`
+const recommendedListSelector = `#contents.style-scope.ytd-item-section-renderer`
+
+// https://stackoverflow.com/posts/29754070/revisions
+const waitForElement = (selector, callback, checkFrequencyInMs, timeoutInMs) => {
+    var startTimeInMs = Date.now();
+    const loopSearch = () => {
+      if (document.querySelector(selector) != null) {
+        callback();
+        return;
+      }
+      else {
+        setTimeout(function () {
+          if (timeoutInMs && Date.now() - startTimeInMs > timeoutInMs)
+            return;
+          loopSearch();
+        }, checkFrequencyInMs);
+      }
+    }
+    loopSearch();
+  }
 
 document.addEventListener("yt-navigate-start",function(event){
     let basURI=event.target.baseURI;
@@ -11,6 +32,7 @@ document.addEventListener("yt-navigate-start",function(event){
         history.back();
         location=normalURI;
     }
+    observeShorts()
 });
 
 chrome.storage.onChanged.addListener(function(){
@@ -71,7 +93,12 @@ function observeShorts(){
         //---Warning--- This function is called so often that it could be affecting performance! Please "pull request"!
         //---警告--- この機能は頻繁に呼び出されており、パフォーマンスに影響があることが考えられます！プルリクエストを！
         observer=new MutationObserver(removeShortVideo);
-        observer.observe(document.getElementById("content"), {childList:true, subtree:true});
+        waitForElement(videoGridSelector, () => {
+            observer.observe(document.querySelector(videoGridSelector), {childList:true, subtree:true})
+        }, undefined, 10000)
+        waitForElement(recommendedListSelector, () => {
+            observer.observe(document.querySelector(recommendedListSelector), {childList:true, subtree:true})
+        }, undefined, 10000)
     }
     if(observer!==null && (isEnable===false || isHideVideos===false)){
         observer.disconnect();
@@ -80,7 +107,6 @@ function observeShorts(){
 }
 
 function removeShortVideo(){
-    //please improve it anyone
     let videoArray=document.querySelectorAll("ytd-video-renderer ytd-thumbnail a, ytd-grid-video-renderer ytd-thumbnail a");
     videoArray.forEach(e=>{
         if(e.href.indexOf("shorts")!=-1){
@@ -97,9 +123,13 @@ function removeShortVideo(){
     // Remove persisting spinner dividers
     const spinnerDividers = Array.from(document.querySelectorAll('ytd-continuation-item-renderer'))
     for(const sD of spinnerDividers){
-        // Wait until videos have loaded under the spinner divider and remove it to fix the layout
+        // Remove any spinning dividers after videos have loaded under them (they have a sibling element),
+        // if not its likely the final spinner, so remove it after 5 seconds.
         if(sD.nextElementSibling){
             sD.remove()
+        }else{
+            setTimeout(() => sD.remove(), 5000)
         }
     }
+    return
 }
