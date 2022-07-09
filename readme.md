@@ -15,7 +15,7 @@ And hide "shorts" tab from the left menu. (optional)
 ## Installation
 - <a href="https://chrome.google.com/webstore/detail/youtube-shorts-block/jiaopdjbehhjgokpphdfgmapkobbnmjp" target="_blank">For Chrome (or other chromium based browsers)</a>
 
-- <a href="https://addons.mozilla.org/ja/firefox/addon/youtube-shorts-block/" target="_blank">For Firefox</a>  
+- <a href="https://addons.mozilla.org/firefox/addon/youtube-shorts-block/" target="_blank">For Firefox</a>  
   - Due to Firefox limitations, autoplay is disabled by default, so please set "Allow Audio and Video" to autoplay.
 
 `Please reload the page once after installation`
