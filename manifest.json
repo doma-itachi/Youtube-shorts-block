@@ -28,5 +28,13 @@
         },
         "default_title": "Youtube-shorts block",
         "default_popup": "popup.html"
-    }
+    },
+    "web_accessible_resources": [
+        {
+            "resources": [
+                "icons/to_normal.svg"
+            ],
+            "matches": ["*://*.youtube.com/*"]
+        }
+    ]
 }

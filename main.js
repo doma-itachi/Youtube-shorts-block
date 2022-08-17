@@ -11,6 +11,19 @@ document.addEventListener("yt-navigate-start",function(event){
         history.back();
         location=normalURI;
     }
+    else{
+        let addUI=()=>{
+            let menus=document.querySelectorAll("div#menu");
+            menus.forEach((element)=>{
+                element.insertAdjacentHTML("afterend",
+                `<div id="block" class="youtube-shorts-block">
+                    <img src="${chrome.runtime.getURL("icons/to_normal.svg")}"></img>
+                    ブロック
+                </div>`);
+            })
+        }
+        addUI();
+    }
 });
 
 chrome.storage.onChanged.addListener(function(){
@@ -22,9 +35,9 @@ loadSettings();
 
 let uri=uriCheck(location.href);
 
-if(uri!==null && isEnable){
-    location=uri;
-}
+// if(uri!==null && isEnable){
+//     location=uri;
+// }
 
 function uriCheck(_uri){
     let links=_uri.split("/");
