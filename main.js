@@ -80,7 +80,24 @@ function observeShorts(){
 }
 
 function removeShortVideo(){
-    //please improve it anyone
+    let del=()=>{
+        let elements = document.querySelectorAll("#dismissible.ytd-rich-shelf-renderer, #dismissible.ytd-shelf-renderer");
+        elements.forEach(element => {
+            let hrefs=element.querySelectorAll("#dismissible #details");
+            if(hrefs.length==0)return;
+            let shortCount=0;
+            hrefs.forEach(element=>{
+                let link=element.querySelector("a");
+                if(link.href.indexOf("shorts")!=-1)shortCount++;
+            });
+            if(hrefs.length===shortCount){
+                element.remove();
+                // console.log(element);
+            }
+        });
+    }
+    del();
+
     let videoArray=document.querySelectorAll("ytd-video-renderer ytd-thumbnail a, ytd-grid-video-renderer ytd-thumbnail a");
     videoArray.forEach(e=>{
         if(e.href.indexOf("shorts")!=-1){
