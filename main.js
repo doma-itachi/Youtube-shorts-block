@@ -5,7 +5,7 @@ let isHideVideos=false;
 let observer=null;
 
 document.addEventListener("yt-navigate-start",function(event){
-    console.log(event);
+    // console.log(event);
     let basURI=event.target.baseURI;
     let normalURI=uriCheck(basURI);
     if(normalURI!==null && isEnable){
@@ -13,8 +13,7 @@ document.addEventListener("yt-navigate-start",function(event){
         location=normalURI;
     }
     else if(normalURI!==null){
-        let addUI=()=>{
-            let menus=document.querySelectorAll("div#menu.ytd-reel-player-overlay-renderer");
+        let addUI=(menus)=>{
             menus.forEach((element)=>{
                 if(element.parentNode.querySelector(".youtube-shorts-block")==null){
                     element.insertAdjacentHTML("afterend",
@@ -36,7 +35,26 @@ document.addEventListener("yt-navigate-start",function(event){
                 }
             });
         }
-        addUI();
+
+        //ショート画面のとき、DOMを挿入する
+        let menuSelector="div#menu.ytd-reel-player-overlay-renderer";
+        let menus=document.querySelectorAll(menuSelector);
+        if(menus.length==0){
+            let t=10;
+                let waitElement=()=>{
+                    setTimeout(()=>{
+                        menus=document.querySelectorAll(menuSelector);
+                        if(menus.length==0)
+                            waitElement();
+                        else
+                            addUI(menus);
+                    }, t);
+                }
+                waitElement();
+        }
+        else{
+            addUI(menus);
+        }
     }
 });
 
