@@ -18,11 +18,11 @@ document.addEventListener("yt-navigate-start",function(event){
             menus.forEach((element)=>{
                 if(element.parentNode.querySelector(".youtube-shorts-block")==null){
                     element.insertAdjacentHTML("afterend",
-                    `<div id="block" class="youtube-shorts-block" title="通常プレイヤーで開く（新しいタブ）">
+                    `<div id="block" class="youtube-shorts-block" title="${chrome.i18n.getMessage("ui_openIn_title")}">
                         <svg xmlns="http://www.w3.org/2000/svg" height="48" width="48">
                             <path d="M19.95 42 22 27.9h-7.3q-.55 0-.8-.5t0-.95L26.15 6h2.05l-2.05 14.05h7.2q.55 0 .825.5.275.5.025.95L22 42Z">
                         </svg>
-                        ブロック
+                        ${chrome.i18n.getMessage("ui_openIn_view")}
                     </div>`);
                     
                     element.parentNode.querySelector("#block").addEventListener("click", ()=>{
@@ -30,7 +30,7 @@ document.addEventListener("yt-navigate-start",function(event){
                             videoElement.pause();
                         });
                         let newURI=uriCheck(document.location.href);
-                        console.log(newURI);
+                        // console.log(newURI);
                         if(newURI!=null)window.open(newURI);
                     });
                 }

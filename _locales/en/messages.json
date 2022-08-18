@@ -6,5 +6,7 @@
     "cfg_warn_msg":{"message": " May not work properly!"},
     "cfg_warn_fb":{"message": "Feedback"},
     "cfg_warn_or":{"message": "or"},
-    "cfg_warn_pr":{"message": "Pull request"}
+    "cfg_warn_pr":{"message": "Pull request"},
+    "ui_openIn_view": {"message": "inRegular"},
+    "ui_openIn_title":{"message": "Open in Regular Player(New Tab)"}
 }
