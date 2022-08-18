@@ -67,9 +67,9 @@ loadSettings();
 
 let uri=uriCheck(location.href);
 
-// if(uri!==null && isEnable){
-//     location=uri;
-// }
+if(uri!==null && isEnable){
+    location=uri;
+}
 
 function uriCheck(_uri){
     let links=_uri.split("/");
