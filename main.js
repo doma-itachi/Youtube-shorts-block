@@ -5,22 +5,36 @@ let isHideVideos=false;
 let observer=null;
 
 document.addEventListener("yt-navigate-start",function(event){
+    console.log(event);
     let basURI=event.target.baseURI;
     let normalURI=uriCheck(basURI);
     if(normalURI!==null && isEnable){
         history.back();
         location=normalURI;
     }
-    else{
+    else if(normalURI!==null){
         let addUI=()=>{
-            let menus=document.querySelectorAll("div#menu");
+            let menus=document.querySelectorAll("div#menu.ytd-reel-player-overlay-renderer");
             menus.forEach((element)=>{
-                element.insertAdjacentHTML("afterend",
-                `<div id="block" class="youtube-shorts-block">
-                    <img src="${chrome.runtime.getURL("icons/to_normal.svg")}"></img>
-                    ブロック
-                </div>`);
-            })
+                if(element.parentNode.querySelector(".youtube-shorts-block")==null){
+                    element.insertAdjacentHTML("afterend",
+                    `<div id="block" class="youtube-shorts-block" title="通常プレイヤーで開く（新しいタブ）">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="48" width="48">
+                            <path d="M19.95 42 22 27.9h-7.3q-.55 0-.8-.5t0-.95L26.15 6h2.05l-2.05 14.05h7.2q.55 0 .825.5.275.5.025.95L22 42Z">
+                        </svg>
+                        ブロック
+                    </div>`);
+                    
+                    element.parentNode.querySelector("#block").addEventListener("click", ()=>{
+                        document.querySelectorAll("video").forEach(videoElement=>{
+                            videoElement.pause();
+                        });
+                        let newURI=uriCheck(document.location.href);
+                        console.log(newURI);
+                        if(newURI!=null)window.open(newURI);
+                    });
+                }
+            });
         }
         addUI();
     }
