@@ -79,6 +79,10 @@ header>p{
     transition: var(--moreAnimationDuration);
 }
 
+#content>#version:hover{
+    text-decoration: underline;
+}
+
 :root{
     --toggleButtonColor: #cfcfcf;
     --toggleAnimDuring: 90ms;

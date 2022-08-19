@@ -18,31 +18,33 @@ document.addEventListener("yt-navigate-start",function(event){
                 if(element.parentNode.querySelector(".youtube-shorts-block")==null){
                     element.insertAdjacentHTML("afterend",
                     `<div id="block" class="youtube-shorts-block" title="${chrome.i18n.getMessage("ui_openIn_title")}">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="48" width="48">
-                            <path d="M19.95 42 22 27.9h-7.3q-.55 0-.8-.5t0-.95L26.15 6h2.05l-2.05 14.05h7.2q.55 0 .825.5.275.5.025.95L22 42Z">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="48" width="48">
+                    <path d="M19.95 42 22 27.9h-7.3q-.55 0-.8-.5t0-.95L26.15 6h2.05l-2.05 14.05h7.2q.55 0 .825.5.275.5.025.95L22 42Z">
                         </svg>
                         ${chrome.i18n.getMessage("ui_openIn_view")}
-                    </div>`);
-                    
-                    element.parentNode.querySelector("#block").addEventListener("click", ()=>{
-                        document.querySelectorAll("video").forEach(videoElement=>{
-                            videoElement.pause();
+                        </div>`);
+                        
+                        element.parentNode.querySelector("#block").addEventListener("click", ()=>{
+                            document.querySelectorAll("video").forEach(videoElement=>{
+                                videoElement.pause();
+                            });
+                            let newURI=uriCheck(document.location.href);
+                            // console.log(newURI);
+                            if(newURI!=null)window.open(newURI);
                         });
-                        let newURI=uriCheck(document.location.href);
-                        // console.log(newURI);
-                        if(newURI!=null)window.open(newURI);
-                    });
-                }
-            });
-        }
-
-        //ショート画面のとき、DOMを挿入する
-        let menuSelector="div#menu.ytd-reel-player-overlay-renderer";
+                    }
+                });
+            console.log("[Youtube-shorts block] An additional UI has inserted.");//削除
+            }
+            
+            //ショート画面のとき、DOMを挿入する
+            let menuSelector="div#menu.ytd-reel-player-overlay-renderer";
         let menus=document.querySelectorAll(menuSelector);
         if(menus.length==0){
             let t=10;
                 let waitElement=()=>{
                     setTimeout(()=>{
+                        console.log("エレメントを待っています");//削除
                         menus=document.querySelectorAll(menuSelector);
                         if(menus.length==0)
                             waitElement();
@@ -125,34 +127,38 @@ function observeShorts(){
 }
 
 function removeShortVideo(){
+    //ショートフィードを削除
     let del=()=>{
         let elements = document.querySelectorAll("#dismissible.ytd-rich-shelf-renderer, #dismissible.ytd-shelf-renderer");
         elements.forEach(element => {
             let hrefs=element.querySelectorAll("#dismissible #details");
             if(hrefs.length==0)return;
-            let shortCount=0;
-            hrefs.forEach(element=>{
-                let link=element.querySelector("a");
-                if(link.href.indexOf("shorts")!=-1)shortCount++;
-            });
-            if(hrefs.length===shortCount){
-                element.remove();
-                // console.log(element);
+            
+            for(let i=0;i<hrefs.length;i++){
+                let link=hrefs[i].querySelector("a");
+                if(link===null)return;
+                if(link.href.indexOf("shorts")==-1)return;
             }
+            console.log("[Youtube-shorts block] A shorts feed has blocked.");
+            element.remove();
         });
     }
     del();
 
-    let videoArray=document.querySelectorAll("ytd-video-renderer ytd-thumbnail a, ytd-grid-video-renderer ytd-thumbnail a");
-    videoArray.forEach(e=>{
-        if(e.href.indexOf("shorts")!=-1){
-            let x=e.parentNode;
-            while(true){
-                if(x.tagName=="YTD-VIDEO-RENDERER" || x.tagName=="YTD-GRID-VIDEO-RENDERER"){x.remove();break;}
-                if(x)
-                x=x.parentNode;
-                if(x===null)break;
+    //ショート動画を削除
+    let shortsArray=document.querySelector('[role="main"]').querySelectorAll('[overlay-style="SHORTS"]');
+    shortsArray.forEach(e=>{
+        let parent=e.parentNode;
+        while(true){
+            if(parent.tagName=="YTD-VIDEO-RENDERER" || parent.tagName=="YTD-GRID-VIDEO-RENDERER"){
+                parent.remove();
+                break;
             }
+            else{
+                parent=parent.parentNode;
+                if(parent===null)break;
+            }
+            
         }
     });
 }

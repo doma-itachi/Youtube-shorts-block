@@ -7,6 +7,7 @@
     "cfg_warn_fb":{"message": "フィードバック"},
     "cfg_warn_or":{"message": "または"},
     "cfg_warn_pr":{"message": "プルリクエスト"},
+    "cfg_ver":{"message": "リリースノートを表示"},
     "ui_openIn_view": {"message": "開く"},
     "ui_openIn_title":{"message": "通常のプレーヤーで開く（新しいタブ）"}
 }
