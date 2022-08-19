@@ -44,7 +44,6 @@ document.addEventListener("yt-navigate-start",function(event){
             let t=10;
                 let waitElement=()=>{
                     setTimeout(()=>{
-                        console.log("エレメントを待っています");//削除
                         menus=document.querySelectorAll(menuSelector);
                         if(menus.length==0)
                             waitElement();
@@ -158,7 +157,6 @@ function removeShortVideo(){
                 parent=parent.parentNode;
                 if(parent===null)break;
             }
-            
         }
     });
 }
