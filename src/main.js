@@ -4,6 +4,9 @@ let isHideVideos=false;
 
 let observer=null;
 
+//計測用の変数
+// let totalTime=0;
+
 document.addEventListener("yt-navigate-start",function(event){
     // console.log(event);
     let basURI=event.target.baseURI;
@@ -144,23 +147,9 @@ function removeShortVideo(){
     }
     del();
 
-    //ショート動画を削除
-    //This code is very simple but has a little lag until the short is hidden.-----------------------------------
-    // let shortsArray=document.querySelector('[role="main"]').querySelectorAll('[overlay-style="SHORTS"]');
-    // shortsArray.forEach(e=>{
-    //     let parent=e.parentNode;
-    //     while(true){
-    //         if(parent.tagName=="YTD-VIDEO-RENDERER" || parent.tagName=="YTD-GRID-VIDEO-RENDERER"){
-    //             parent.remove();
-    //             break;
-    //         }
-    //         else{
-    //             parent=parent.parentNode;
-    //             if(parent===null)break;
-    //         }
-    //     }
-    // });
+    // const start=performance.now();
 
+    //speed(Simple measurement):48ms
     let videoArray=document.querySelectorAll("ytd-video-renderer ytd-thumbnail a, ytd-grid-video-renderer ytd-thumbnail a");
     videoArray.forEach(e=>{
         if(e.href.indexOf("shorts")!=-1){
@@ -173,4 +162,7 @@ function removeShortVideo(){
             }
         }
     });
+
+    // totalTime+=performance.now()-start;
+    // console.log("totalTime:"+Math.round(totalTime)+"[ms]");
 }

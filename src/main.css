@@ -23,6 +23,10 @@
     margin: auto;
 }
 
+ytd-continuation-item-renderer:not(:last-child){
+    display: none;
+}
+
 @media screen and (min-width:600px){
     #block.youtube-shorts-block{
         color: var(--iron-icon-color);
