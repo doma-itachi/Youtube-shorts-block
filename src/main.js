@@ -145,17 +145,31 @@ function removeShortVideo(){
     del();
 
     //ショート動画を削除
-    let shortsArray=document.querySelector('[role="main"]').querySelectorAll('[overlay-style="SHORTS"]');
-    shortsArray.forEach(e=>{
-        let parent=e.parentNode;
-        while(true){
-            if(parent.tagName=="YTD-VIDEO-RENDERER" || parent.tagName=="YTD-GRID-VIDEO-RENDERER"){
-                parent.remove();
-                break;
-            }
-            else{
-                parent=parent.parentNode;
-                if(parent===null)break;
+    //This code is very simple but has a little lag until the short is hidden.-----------------------------------
+    // let shortsArray=document.querySelector('[role="main"]').querySelectorAll('[overlay-style="SHORTS"]');
+    // shortsArray.forEach(e=>{
+    //     let parent=e.parentNode;
+    //     while(true){
+    //         if(parent.tagName=="YTD-VIDEO-RENDERER" || parent.tagName=="YTD-GRID-VIDEO-RENDERER"){
+    //             parent.remove();
+    //             break;
+    //         }
+    //         else{
+    //             parent=parent.parentNode;
+    //             if(parent===null)break;
+    //         }
+    //     }
+    // });
+
+    let videoArray=document.querySelectorAll("ytd-video-renderer ytd-thumbnail a, ytd-grid-video-renderer ytd-thumbnail a");
+    videoArray.forEach(e=>{
+        if(e.href.indexOf("shorts")!=-1){
+            let x=e.parentNode;
+            while(true){
+                if(x.tagName=="YTD-VIDEO-RENDERER" || x.tagName=="YTD-GRID-VIDEO-RENDERER"){x.remove();break;}
+                if(x)
+                x=x.parentNode;
+                if(x===null)break;
             }
         }
     });
