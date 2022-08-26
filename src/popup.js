@@ -43,7 +43,11 @@ window.onload=function(){
     document.getElementById("warn_or").innerHTML=chrome.i18n.getMessage("cfg_warn_or");
     document.getElementById("warn_pr").innerHTML=chrome.i18n.getMessage("cfg_warn_pr");
 
-    document.getElementById("version").innerHTML="v"+chrome.runtime.getManifest().version;
+    let verElem=document.getElementById("version");
+    verElem.innerHTML="v"+chrome.runtime.getManifest().version;
+    verElem.title=chrome.i18n.getMessage("cfg_ver");
+    verElem.addEventListener("click", ()=>{window.open("https://doma-itachi.github.io/Youtube-shorts-block/#release")});
+
     document.getElementById("more_icon").addEventListener("click", function(){
         let elem=document.getElementById("more_checkbox");
         elem.checked=!elem.checked;
