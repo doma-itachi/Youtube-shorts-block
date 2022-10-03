@@ -78,7 +78,7 @@ if(uri!==null && isEnable){
 function uriCheck(_uri){
     let links=_uri.split("/");
     for(let i=0;i<links.length;i++){
-        if(links[i]=="shorts"){
+        if(links[i]=="shorts" && links[i+1]!=undefined){
             return "https://www.youtube.com/watch?v="+links[i+1];
         }
     }
