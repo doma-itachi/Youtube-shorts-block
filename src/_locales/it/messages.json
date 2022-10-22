@@ -8,6 +8,6 @@
     "cfg_warn_or":{"message": "o"},
     "cfg_warn_pr":{"message": "Pull request"},
     "cfg_ver":{"message": "Mostra le note di rilascio"},
-    "ui_openIn_view": {"message": "inRegular"},
+    "ui_openIn_view": {"message": "Player standard"},
     "ui_openIn_title":{"message": "Apri con il Player standard (Nuova scheda)"}
 }
