@@ -34,17 +34,17 @@ window.onload=function(){
     });
 
     //set i18n
-    document.getElementById("description").innerHTML=browser.i18n.getMessage("ext_desc");
-    document.querySelector("#hideShortTabInput + label").innerHTML=browser.i18n.getMessage("cfg_hide_tab");
-    document.querySelector("#hideShortVideoInput + label").innerHTML=browser.i18n.getMessage("cfg_hide_video");
-    document.getElementById("warn_col").innerHTML=browser.i18n.getMessage("cfg_warn_col");
-    document.getElementById("warn_msg").innerHTML=browser.i18n.getMessage("cfg_warn_msg");
-    document.getElementById("warn_fb").innerHTML=browser.i18n.getMessage("cfg_warn_fb");
-    document.getElementById("warn_or").innerHTML=browser.i18n.getMessage("cfg_warn_or");
-    document.getElementById("warn_pr").innerHTML=browser.i18n.getMessage("cfg_warn_pr");
+    document.getElementById("description").textContent=browser.i18n.getMessage("ext_desc");
+    document.querySelector("#hideShortTabInput + label").textContent=browser.i18n.getMessage("cfg_hide_tab");
+    document.querySelector("#hideShortVideoInput + label").textContent=browser.i18n.getMessage("cfg_hide_video");
+    document.getElementById("warn_col").textContent=browser.i18n.getMessage("cfg_warn_col");
+    document.getElementById("warn_msg").textContent=browser.i18n.getMessage("cfg_warn_msg");
+    document.getElementById("warn_fb").textContent=browser.i18n.getMessage("cfg_warn_fb");
+    document.getElementById("warn_or").textContent=browser.i18n.getMessage("cfg_warn_or");
+    document.getElementById("warn_pr").textContent=browser.i18n.getMessage("cfg_warn_pr");
 
     let verElem=document.getElementById("version");
-    verElem.innerHTML="v"+browser.runtime.getManifest().version;
+    verElem.textContent="v"+browser.runtime.getManifest().version;
     verElem.title=browser.i18n.getMessage("cfg_ver");
     verElem.addEventListener("click", ()=>{window.open("https://doma-itachi.github.io/Youtube-shorts-block/#release")});
 
