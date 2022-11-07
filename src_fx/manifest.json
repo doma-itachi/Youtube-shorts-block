@@ -1,0 +1,32 @@
+{
+    "manifest_version": 2,
+    "name": "Youtube-shorts block",
+    "version": "1.3.3",
+    "description": "__MSG_ext_desc__",
+    "default_locale": "en",
+    "icons":{
+        "32":"icons/icon32.png",
+        "64":"icons/icon64.png",
+        "128":"icons/icon128.png"
+    },
+    "permissions":[
+        "storage"
+    ],
+    "content_scripts": [
+        {
+            "matches": ["*://*.youtube.com/*"],
+            "all_frames": true,
+            "js": ["main.js"],
+            "css": ["main.css"]
+        }
+    ],
+    "browser_action": {
+        "default_icon":{
+            "32":"icons/icon32.png",
+            "64":"icons/icon64.png",
+            "128":"icons/icon128.png"
+        },
+        "default_title": "Youtube-shorts block",
+        "default_popup": "popup.html"
+    }
+}

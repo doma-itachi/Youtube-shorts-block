@@ -1,0 +1,13 @@
+{
+    "ext_desc":{"message": "Play the Youtube shorts video as if it were a normal video."},
+    "cfg_hide_tab":{"message": "hide \"shorts\" tab"},
+    "cfg_hide_video":{"message": "hide shorts video(unstable)"},
+    "cfg_warn_col":{"message": "Warning!"},
+    "cfg_warn_msg":{"message": " May not work properly!"},
+    "cfg_warn_fb":{"message": "Feedback"},
+    "cfg_warn_or":{"message": "or"},
+    "cfg_warn_pr":{"message": "Pull request"},
+    "cfg_ver":{"message": "Show release notes"},
+    "ui_openIn_view": {"message": "inRegular"},
+    "ui_openIn_title":{"message": "Open in Regular Player(New Tab)"}
+}
