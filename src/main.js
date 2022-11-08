@@ -150,18 +150,17 @@ function removeShortVideo(){
     // const start=performance.now();
 
     //speed(Simple measurement):48ms
-    let videoArray=document.querySelectorAll("ytd-video-renderer ytd-thumbnail a, ytd-grid-video-renderer ytd-thumbnail a");
-    videoArray.forEach(e=>{
-        if(e.href.indexOf("shorts")!=-1){
-            let x=e.parentNode;
-            while(true){
-                if(x.tagName=="YTD-VIDEO-RENDERER" || x.tagName=="YTD-GRID-VIDEO-RENDERER"){x.remove();break;}
-                if(x)
-                x=x.parentNode;
-                if(x===null)break;
-            }
+    const videoArray = document.querySelectorAll("ytd-video-renderer ytd-thumbnail a, ytd-grid-video-renderer ytd-thumbnail a");
+    for(const video of videoArray) {
+        if(video.href.includes("shorts")) {
+            let renderer = video;
+            do {
+                renderer = renderer.parentElement;
+            } while(renderer !== null && renderer.tagName !== "YTD-VIDEO-RENDERER" && renderer.tagName !== "YTD-GRID-VIDEO-RENDERER");
+            if(renderer)
+                renderer.remove();
         }
-    });
+    }
 
     // totalTime+=performance.now()-start;
     // console.log("totalTime:"+Math.round(totalTime)+"[ms]");
