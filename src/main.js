@@ -37,7 +37,8 @@ document.addEventListener("yt-navigate-start",function(event){
                         });
                     }
                 });
-            console.log("[Youtube-shorts block] An additional UI has inserted.");//削除
+                
+                logf("An additional UI has inserted.");
             }
             
             //ショート画面のとき、DOMを挿入する
@@ -141,12 +142,19 @@ function removeShortVideo(){
                 if(link===null)return;
                 if(link.href.indexOf("shorts")==-1)return;
             }
-            console.log("[Youtube-shorts block] A shorts feed has blocked.");
+            logf("A shorts feed has blocked.");
             element.remove();
         });
     }
     del();
 
+    let reels=document.querySelectorAll("ytd-reel-shelf-renderer");
+    if(reels.length!=0){
+        for(let reel of reels){
+            reel.remove();
+        }
+        logf("A shorts reels has blocked.");
+    }
     // const start=performance.now();
 
     //speed(Simple measurement):48ms
@@ -165,4 +173,7 @@ function removeShortVideo(){
 
     // totalTime+=performance.now()-start;
     // console.log("totalTime:"+Math.round(totalTime)+"[ms]");
+}
+function logf(string){
+    console.log("[Youtube-shorts block] "+string);
 }
