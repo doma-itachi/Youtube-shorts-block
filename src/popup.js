@@ -2,6 +2,20 @@ let _isEnable;
 let _isHideTabs;
 let _isHideVideos;
 
+let BrowserTypes={
+    Chromium: 0,
+    Firefox: 1
+}
+
+function getBrowserType(){
+    if(chrome.runtime.getURL("").startsWith("moz"))
+        return BrowserTypes.Firefox;
+    else
+        return BrowserTypes.Chromium;
+}
+
+let runningBrowser=getBrowserType();
+
 window.onload=function(){
     chrome.storage.local.get(null, function(value){
         //isEnable
@@ -55,6 +69,18 @@ window.onload=function(){
     document.getElementById("ghlink").addEventListener("click",function(){window.open("https://github.com/doma-itachi/Youtube-shorts-block","_blank")});
     document.getElementById("toggle_wrap").addEventListener("click",function(){
             _isEnable=!_isEnable;
+            if(runningBrowser==BrowserTypes.Chromium){
+                chrome.declarativeNetRequest.updateEnableRulesets(
+                    {
+                        disableRulesetIds:[
+                            _isEnable?"":"ruleset"
+                        ],
+                        enableRulesetIds:[
+                            !_isEnable?"":"ruleset"
+                        ]
+                    }
+                )
+            }
             chrome.storage.local.set({isEnable:_isEnable});
             setToggleAttr(_isEnable);
     });

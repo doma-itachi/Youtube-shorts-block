@@ -4,14 +4,26 @@ let isHideVideos=false;
 
 let observer=null;
 
+let BrowserTypes={
+    Chromium: 0,
+    Firefox: 1
+}
 //計測用の変数
 // let totalTime=0;
 
+function getBrowserType(){
+    if(chrome.runtime.getURL("").startsWith("moz"))
+        return BrowserTypes.Firefox;
+    else
+        return BrowserTypes.Chromium;
+}
+
+let runningBrowser=getBrowserType();
+
 document.addEventListener("yt-navigate-start",function(event){
-    // console.log(event);
     let basURI=event.target.baseURI;
     let normalURI=uriCheck(basURI);
-    if(normalURI!==null && isEnable){
+    if(normalURI!==null && isEnable && runningBrowser==BrowserTypes.Firefox){
         history.back();
         location=normalURI;
     }
@@ -70,10 +82,11 @@ chrome.storage.onChanged.addListener(function(){
 //初期化
 loadSettings();
 
-let uri=uriCheck(location.href);
-
-if(uri!==null && isEnable){
-    location=uri;
+if(runningBrowser==BrowserTypes.Firefox){
+    let uri=uriCheck(location.href);
+    if(uri!==null && isEnable){
+        location=uri;
+    }
 }
 
 function uriCheck(_uri){
@@ -118,8 +131,6 @@ function loadSettings(){
 
 function observeShorts(){
     if(observer===null && isEnable && isHideVideos){
-        //---Warning--- This function is called so often that it could be affecting performance! Please "pull request"!
-        //---警告--- この機能は頻繁に呼び出されており、パフォーマンスに影響があることが考えられます！プルリクエストを！
         observer=new MutationObserver(removeShortVideo);
         observer.observe(document.getElementById("content"), {childList:true, subtree:true});
     }

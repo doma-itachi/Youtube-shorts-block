@@ -1,0 +1,18 @@
+[
+    {
+        "id": 1,
+        "priority": 1,
+        "action": {
+            "type": "redirect",
+            "redirect": {
+                "regexSubstitution": "$1watch?v=$2"
+            }
+        },
+        "condition": {
+            "regexFilter": "^(https:\/\/www\\.youtube\\.com\/)shorts\/(.*)",
+            "resourceTypes": [
+                "main_frame"
+            ]
+        }
+    }
+]
