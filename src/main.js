@@ -4,9 +4,6 @@ let isHideVideos=false;
 
 let observer=null;
 
-//計測用の変数
-// let totalTime=0;
-
 // support kiwiBrowser(m.youtube.com)
 window.addEventListener("state-navigatestart", (e)=>{
     let basURI=e.detail.href;
@@ -18,13 +15,17 @@ window.addEventListener("state-navigatestart", (e)=>{
 });
 
 document.addEventListener("yt-navigate-start",function(event){
+    //リダイレクト処理・ショートプレーヤーDOM改変処理をする
     let basURI=event.target.baseURI;
     let normalURI=uriCheck(basURI);
     if(normalURI!==null && isEnable){
         history.back();
         location=normalURI;
     }
+
     else if(normalURI!==null){
+        //
+        //もしショートプレーヤーならUIを挿入する
         let addUI=(menus)=>{
             menus.forEach((element)=>{
                 if(element.parentNode.querySelector(".youtube-shorts-block")==null){
@@ -32,26 +33,24 @@ document.addEventListener("yt-navigate-start",function(event){
                     `<div id="block" class="youtube-shorts-block" title="${chrome.i18n.getMessage("ui_openIn_title")}">
                     <svg xmlns="http://www.w3.org/2000/svg" height="48" width="48">
                     <path d="M19.95 42 22 27.9h-7.3q-.55 0-.8-.5t0-.95L26.15 6h2.05l-2.05 14.05h7.2q.55 0 .825.5.275.5.025.95L22 42Z">
-                        </svg>
-                        ${chrome.i18n.getMessage("ui_openIn_view")}
-                        </div>`);
-                        
-                        element.parentNode.querySelector("#block").addEventListener("click", ()=>{
-                            document.querySelectorAll("video").forEach(videoElement=>{
-                                videoElement.pause();
-                            });
-                            let newURI=uriCheck(document.location.href);
-                            // console.log(newURI);
-                            if(newURI!=null)window.open(newURI);
+                    </svg>
+                    ${chrome.i18n.getMessage("ui_openIn_view")}
+                    </div>`);
+                    
+                    element.parentNode.querySelector("#block").addEventListener("click", ()=>{
+                        document.querySelectorAll("video").forEach(videoElement=>{
+                            videoElement.pause();
                         });
-                    }
-                });
-                
-                logf("An additional UI has inserted.");
-            }
+                        let newURI=uriCheck(document.location.href);
+                        if(newURI!=null)window.open(newURI);
+                    });
+                }
+            });
+            logf("An additional UI has inserted.");
+        }
             
-            //ショート画面のとき、DOMを挿入する
-            let menuSelector="div#menu.ytd-reel-player-overlay-renderer";
+        //ボタンが出てきたらaddUI()をハンドルする
+        let menuSelector="div#menu.ytd-reel-player-overlay-renderer";//ショートプレーヤーのボタンUI
         let menus=document.querySelectorAll(menuSelector);
         if(menus.length==0){
             let t=10;
@@ -72,21 +71,21 @@ document.addEventListener("yt-navigate-start",function(event){
     }
 });
 
-logf("Youtube-shorts block activated.")
+logf("Youtube-shorts block activated.");
 
 chrome.storage.onChanged.addListener(function(){
     loadSettings();
 });
 
-//初期化
 loadSettings();
 
+//更新時または新しいタブで開いたときに実行される
 let uri=uriCheck(location.href);
-
 if(uri!==null && isEnable){
     location=uri;
 }
 
+//リンクがshortsだったら通常のリンクを返す(それ以外はnullを返す)
 function uriCheck(_uri){
     let links=_uri.split("/");
     for(let i=0;i<links.length;i++){
@@ -96,6 +95,8 @@ function uriCheck(_uri){
     }
     return null;
 }
+
+//設定を読み込む
 function loadSettings(){
     chrome.storage.local.get(null, function(value){
         //有効/無効
@@ -127,10 +128,9 @@ function loadSettings(){
     });
 }
 
+//hide shorts videoが有効のとき、removeShortVideo関数を実行する。
 function observeShorts(){
     if(observer===null && isEnable && isHideVideos){
-        //---Warning--- This function is called so often that it could be affecting performance! Please "pull request"!
-        //---警告--- この機能は頻繁に呼び出されており、パフォーマンスに影響があることが考えられます！プルリクエストを！
         observer=new MutationObserver(removeShortVideo);
         observer.observe(document.getElementById("content"), {childList:true, subtree:true});
     }
@@ -159,6 +159,7 @@ function removeShortVideo(){
     }
     del();
 
+    //ショート関連のリールを非表示にする
     let reels=document.querySelectorAll("ytd-reel-shelf-renderer");
     if(reels.length!=0){
         for(let reel of reels){
@@ -166,9 +167,8 @@ function removeShortVideo(){
         }
         logf("A shorts reels has blocked.");
     }
-    // const start=performance.now();
-
-    //speed(Simple measurement):48ms
+    
+    //ショート動画自体を非表示にする
     let videoArray=document.querySelectorAll("ytd-video-renderer ytd-thumbnail a, ytd-grid-video-renderer ytd-thumbnail a");
     videoArray.forEach(e=>{
         if(e.href.indexOf("shorts")!=-1){
@@ -181,10 +181,9 @@ function removeShortVideo(){
             }
         }
     });
-
-    // totalTime+=performance.now()-start;
-    // console.log("totalTime:"+Math.round(totalTime)+"[ms]");
 }
+
+//フォーマットされたログを出力する
 function logf(string){
     console.log("[Youtube-shorts block] "+string);
 }
