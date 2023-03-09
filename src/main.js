@@ -131,8 +131,17 @@ function loadSettings(){
 //hide shorts videoが有効のとき、removeShortVideo関数を実行する。
 function observeShorts(){
     if(observer===null && isEnable && isHideVideos){
+        //youtube.comとm.youtube.comで監視対象を変える
+        let isMobile=false;
+        let container=document.getElementById("content");
+        if(container===null){
+            isMobile=true;
+            container=document.getElementById("app");
+        }
+
         observer=new MutationObserver(removeShortVideo);
-        observer.observe(document.getElementById("content"), {childList:true, subtree:true});
+        observer.observe(container, {childList:true, subtree:true});
+        if(isMobile)removeShortVideo();
     }
     if(observer!==null && (isEnable===false || isHideVideos===false)){
         observer.disconnect();
@@ -160,7 +169,7 @@ function removeShortVideo(){
     del();
 
     //ショート関連のリールを非表示にする
-    let reels=document.querySelectorAll("ytd-reel-shelf-renderer");
+    let reels=document.querySelectorAll("ytd-reel-shelf-renderer, ytm-reel-shelf-renderer");
     if(reels.length!=0){
         for(let reel of reels){
             reel.remove();
@@ -169,12 +178,12 @@ function removeShortVideo(){
     }
     
     //ショート動画自体を非表示にする
-    let videoArray=document.querySelectorAll("ytd-video-renderer ytd-thumbnail a, ytd-grid-video-renderer ytd-thumbnail a");
+    let videoArray=document.querySelectorAll("ytd-video-renderer ytd-thumbnail a, ytd-grid-video-renderer ytd-thumbnail a, ytm-video-with-context-renderer a.media-item-thumbnail-container");
     videoArray.forEach(e=>{
         if(e.href.indexOf("shorts")!=-1){
             let x=e.parentNode;
             while(true){
-                if(x.tagName=="YTD-VIDEO-RENDERER" || x.tagName=="YTD-GRID-VIDEO-RENDERER"){x.remove();break;}
+                if(x.tagName=="YTD-VIDEO-RENDERER" || x.tagName=="YTD-GRID-VIDEO-RENDERER" || x.tagName=="YTM-VIDEO-WITH-CONTEXT-RENDERER"){x.remove();break;}
                 if(x)
                 x=x.parentNode;
                 if(x===null)break;
