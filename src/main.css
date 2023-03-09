@@ -8,6 +8,10 @@
     pointer-events: none !important;
 }
 
+.youtube-shorts-block ytm-pivot-bar-item-renderer:has(.pivot-bar-item-tab.pivot-shorts){
+    display: none;
+}
+
 #block.youtube-shorts-block{
     color: white;
     margin: 6px 0;
