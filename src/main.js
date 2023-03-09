@@ -7,8 +7,17 @@ let observer=null;
 //計測用の変数
 // let totalTime=0;
 
+// support kiwiBrowser(m.youtube.com)
+window.addEventListener("state-navigatestart", (e)=>{
+    let basURI=e.detail.href;
+    let normalURI=uriCheck(basURI);
+    if(normalURI!==null && isEnable){
+        history.back();
+        location=normalURI;
+    }
+});
+
 document.addEventListener("yt-navigate-start",function(event){
-    // console.log(event);
     let basURI=event.target.baseURI;
     let normalURI=uriCheck(basURI);
     if(normalURI!==null && isEnable){
@@ -62,6 +71,8 @@ document.addEventListener("yt-navigate-start",function(event){
         }
     }
 });
+
+logf("Youtube-shorts block activated.")
 
 chrome.storage.onChanged.addListener(function(){
     loadSettings();

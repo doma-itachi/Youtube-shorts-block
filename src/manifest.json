@@ -14,7 +14,7 @@
     ],
     "content_scripts": [
         {
-            "matches": ["*://*.youtube.com/*"],
+            "matches": ["*://*.youtube.com/*", "*://m.youtube.com/*"],
             "all_frames": true,
             "js": ["main.js"],
             "css": ["main.css"]
