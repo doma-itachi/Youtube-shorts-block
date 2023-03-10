@@ -5,14 +5,15 @@ let isHideVideos=false;
 let observer=null;
 
 // support kiwiBrowser(m.youtube.com)
-window.addEventListener("state-navigatestart", (e)=>{
-    let basURI=e.detail.href;
-    let normalURI=uriCheck(basURI);
-    if(normalURI!==null && isEnable){
-        history.back();
-        location=normalURI;
-    }
-});
+if(window.location.hostname.at(0)==="m")
+    window.addEventListener("state-navigatestart", (e)=>{
+        let basURI=e.detail.href;
+        let normalURI=uriCheck(basURI);
+        if(normalURI!==null && isEnable){
+            history.back();
+            location=normalURI;
+        }
+    });
 
 document.addEventListener("yt-navigate-start",function(event){
     //リダイレクト処理・ショートプレーヤーDOM改変処理をする
