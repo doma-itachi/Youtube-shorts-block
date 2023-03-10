@@ -1,6 +1,6 @@
 let isEnable=true;
 let isHideTabs=false;
-let isHideVideos=false;
+let isHideVideos=true;
 
 let observer=null;
 
@@ -108,7 +108,10 @@ function loadSettings(){
         }
 
         //ビデオを非表示
-        if(value.isHideVideos===true){
+        if(value.isHideVideos!==false){
+            if(value.isHideVideos===undefined)
+                logf("\"Hide shorts video\" is enabled by default!\nIf you don't want to do that, please disable in option page!");
+                
             isHideVideos=true;
         }else{
             isHideVideos=false;
