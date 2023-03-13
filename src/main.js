@@ -72,7 +72,7 @@ document.addEventListener("yt-navigate-start",function(event){
     }
 });
 
-logf("Youtube-shorts block activated.");
+logf("Youtube Shorts Block activated.");
 
 chrome.storage.onChanged.addListener(function(){
     loadSettings();
@@ -166,7 +166,7 @@ function removeShortVideo(){
                 if(link===null)return;
                 if(link.href.indexOf("shorts")==-1)return;
             }
-            logf("A shorts feed has blocked.");
+            logf("A shorts feed has been blocked.");
             element.remove();
         });
     }
@@ -178,7 +178,7 @@ function removeShortVideo(){
         for(let reel of reels){
             reel.remove();
         }
-        logf("A shorts reels has blocked.");
+        logf("A shorts reels has been blocked.");
     }
     
     //ショート動画自体を非表示にする
@@ -198,5 +198,5 @@ function removeShortVideo(){
 
 //フォーマットされたログを出力する
 function logf(string){
-    console.log("[Youtube-shorts block] "+string);
+    console.log("[Youtube Shorts Block] "+string);
 }

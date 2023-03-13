@@ -10,7 +10,7 @@ body{
     margin:0%;
     /* border: 1px solid gray; */
     width: 350px;
-    height: 110px;
+    height: 114px;
     min-width: 300px;
     transition: var(--moreAnimationDuration);
 }
@@ -54,6 +54,7 @@ header>p{
     grid-column: 2;
     grid-row: 2;
     margin-left: 8px;
+    font-weight: bold;
 }
 
 #content{

@@ -76,8 +76,8 @@ window.onload=function(){
 };
 
 function setToggleAttr(bool){
-    if(bool) chrome.action.setIcon({path:{"32":"icons/icon32.png","64":"icons/icon64.png","128":"icons/icon128.png"}});
-    else chrome.action.setIcon({path:{"32":"icons/icon32_disabled.png","64":"icons/icon64_disabled.png","128":"icons/icon128_disabled.png"}});
+    if(bool) chrome.action.setIcon({path:{"19":"icons/icon32.png","32":"icons/icon32.png","38":"icons/icon38.png","48":"icons/icon64.png"}});
+    else chrome.action.setIcon({path:{"19":"icons/icon19_disabled.png","32":"icons/icon32_disabled.png","38":"icons/icon38_disabled.png","48":"icons/icon48_disabled.png"}});
 
     document.getElementById("logo").setAttribute("enabled",bool)
     document.getElementById("toggle_wrap").setAttribute("checked", bool);
