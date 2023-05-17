@@ -24,11 +24,11 @@ window.onload=function(){
         document.getElementById("hideShortTabInput").checked=_isHideTabs;
 
         //isHideVideos
-        if(value.isHideVideos===true){
-            _isHideVideos=true;
+        if(value.isHideVideos===false){
+            _isHideVideos=false;
         }
         else{
-            _isHideVideos=false;
+            _isHideVideos=true;
         }
         document.getElementById("hideShortVideoInput").checked=_isHideVideos;
     });

@@ -1,0 +1,13 @@
+{
+    "ext_desc":{"message": "Spiele Youtube-Shorts-Videos wie normal Videos ab."},
+    "cfg_hide_tab":{"message": "\"Shorts\"-Tab ausblenden"},
+    "cfg_hide_video":{"message": "Shorts-Videos ausblenden(instabil)"},
+    "cfg_warn_col":{"message": "Warnung!"},
+    "cfg_warn_msg":{"message": " Funktioniert eventuell nicht richtig!"},
+    "cfg_warn_fb":{"message": "Feedback"},
+    "cfg_warn_or":{"message": "oder"},
+    "cfg_warn_pr":{"message": "Pull request"},
+    "cfg_ver":{"message": "Veröffentlichungshinweise anzeigen"},
+    "ui_openIn_view": {"message": "Standard-Player"},
+    "ui_openIn_title":{"message": "Im normalen Player öffnen(Neuer Tab)"}
+}

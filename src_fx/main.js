@@ -1,21 +1,32 @@
 let isEnable=true;
 let isHideTabs=false;
-let isHideVideos=false;
+let isHideVideos=true;
 
 let observer=null;
 
-//計測用の変数
-// let totalTime=0;
+// support kiwiBrowser(m.youtube.com)
+if(window.location.hostname.at(0)==="m")
+    window.addEventListener("state-navigatestart", (e)=>{
+        let basURI=e.detail.href;
+        let normalURI=uriCheck(basURI);
+        if(normalURI!==null && isEnable){
+            history.back();
+            location=normalURI;
+        }
+    });
 
 document.addEventListener("yt-navigate-start",function(event){
-    // console.log(event);
+    //リダイレクト処理・ショートプレーヤーDOM改変処理をする
     let basURI=event.target.baseURI;
     let normalURI=uriCheck(basURI);
     if(normalURI!==null && isEnable){
         history.back();
         location=normalURI;
     }
+
     else if(normalURI!==null){
+        //
+        //もしショートプレーヤーならUIを挿入する
         let addUI=(menus)=>{
             menus.forEach((element)=>{
                 if(element.parentNode.querySelector(".youtube-shorts-block")==null){
@@ -32,16 +43,15 @@ document.addEventListener("yt-navigate-start",function(event){
                                 videoElement.pause();
                             });
                             let newURI=uriCheck(document.location.href);
-                            // console.log(newURI);
                             if(newURI!=null)window.open(newURI);
                         });
                     }
                 });
-            console.log("[Youtube-shorts block] An additional UI has inserted.");//削除
+            logf("An additional UI has inserted.");
             }
             
-            //ショート画面のとき、DOMを挿入する
-            let menuSelector="div#menu.ytd-reel-player-overlay-renderer";
+            //ボタンが出てきたらaddUI()をハンドルする
+            let menuSelector="div#menu.ytd-reel-player-overlay-renderer";//ショートプレーヤーのボタンUI
         let menus=document.querySelectorAll(menuSelector);
         if(menus.length==0){
             let t=10;
@@ -62,19 +72,21 @@ document.addEventListener("yt-navigate-start",function(event){
     }
 });
 
+logf("Youtube-shorts block activated.");
+
 browser.storage.onChanged.addListener(function(){
     loadSettings();
 });
 
-//初期化
 loadSettings();
 
+//更新時または新しいタブで開いたときに実行される
 let uri=uriCheck(location.href);
-
 if(uri!==null && isEnable){
     location=uri;
 }
 
+//リンクがshortsだったら通常のリンクを返す(それ以外はnullを返す)
 function uriCheck(_uri){
     let links=_uri.split("/");
     for(let i=0;i<links.length;i++){
@@ -84,6 +96,8 @@ function uriCheck(_uri){
     }
     return null;
 }
+
+//設定を読み込む
 function loadSettings(){
     browser.storage.local.get(null, function(value){
         //有効/無効
@@ -94,7 +108,10 @@ function loadSettings(){
         }
 
         //ビデオを非表示
-        if(value.isHideVideos===true){
+        if(value.isHideVideos!==false){
+            if(value.isHideVideos===undefined)
+                logf("\"Hide shorts video\" is enabled by default!\nIf you don't want to do that, please disable in option page!");
+
             isHideVideos=true;
         }else{
             isHideVideos=false;
@@ -115,12 +132,20 @@ function loadSettings(){
     });
 }
 
+//hide shorts videoが有効のとき、removeShortVideo関数を実行する。
 function observeShorts(){
     if(observer===null && isEnable && isHideVideos){
-        //---Warning--- This function is called so often that it could be affecting performance! Please "pull request"!
-        //---警告--- この機能は頻繁に呼び出されており、パフォーマンスに影響があることが考えられます！プルリクエストを！
+    //youtube.comとm.youtube.comで監視対象を変える
+    let isMobile=false;
+    let container=document.getElementById("content");
+    if(container===null){
+        isMobile=true;
+        container=document.getElementById("app");
+    }
+
         observer=new MutationObserver(removeShortVideo);
-        observer.observe(document.getElementById("content"), {childList:true, subtree:true});
+        observer.observe(container, {childList:true, subtree:true});
+        if(isMobile)removeShortVideo();
     }
     if(observer!==null && (isEnable===false || isHideVideos===false)){
         observer.disconnect();
@@ -141,28 +166,37 @@ function removeShortVideo(){
                 if(link===null)return;
                 if(link.href.indexOf("shorts")==-1)return;
             }
-            console.log("[Youtube-shorts block] A shorts feed has blocked.");
+            logf("A shorts feed has blocked.");
             element.remove();
         });
     }
     del();
 
-    // const start=performance.now();
+    //ショート関連のリールを非表示にする
+    let reels=document.querySelectorAll("ytd-reel-shelf-renderer, ytm-reel-shelf-renderer");
+    if(reels.length!=0){
+        for(let reel of reels){
+            reel.remove();
+        }
+        logf("A shorts reels has blocked.");
+    }
 
-    //speed(Simple measurement):48ms
-    let videoArray=document.querySelectorAll("ytd-video-renderer ytd-thumbnail a, ytd-grid-video-renderer ytd-thumbnail a");
+    //ショート動画自体を非表示にする
+    let videoArray=document.querySelectorAll("ytd-video-renderer ytd-thumbnail a, ytd-grid-video-renderer ytd-thumbnail a, ytm-video-with-context-renderer a.media-item-thumbnail-container");
     videoArray.forEach(e=>{
         if(e.href.indexOf("shorts")!=-1){
             let x=e.parentNode;
             while(true){
-                if(x.tagName=="YTD-VIDEO-RENDERER" || x.tagName=="YTD-GRID-VIDEO-RENDERER"){x.remove();break;}
+                if(x.tagName=="YTD-VIDEO-RENDERER" || x.tagName=="YTD-GRID-VIDEO-RENDERER" || x.tagName=="YTM-VIDEO-WITH-CONTEXT-RENDERER"){x.remove();break;}
                 if(x)
                 x=x.parentNode;
                 if(x===null)break;
             }
         }
     });
+}
 
-    // totalTime+=performance.now()-start;
-    // console.log("totalTime:"+Math.round(totalTime)+"[ms]");
+//フォーマットされたログを出力する
+function logf(string){
+    console.log("[Youtube-shorts block] "+string);
 }
