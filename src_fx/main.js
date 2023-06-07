@@ -172,6 +172,13 @@ function removeShortVideo(){
     }
     del();
 
+    //新しい登録ページを非表示にする
+    document.querySelectorAll("ytd-rich-item-renderer").forEach(element=>{
+        if(element.querySelector("span[aria-label='Shorts']")){
+            element.remove();
+        }
+    });
+
     //ショート関連のリールを非表示にする
     let reels=document.querySelectorAll("ytd-reel-shelf-renderer, ytm-reel-shelf-renderer");
     if(reels.length!=0){
