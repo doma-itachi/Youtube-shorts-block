@@ -1,0 +1,13 @@
+{
+    "ext_desc":{"message": "Проигрывать Youtube shorts как обычное видео."},
+    "cfg_hide_tab":{"message": "спрятать \"shorts\" вкладку"},
+    "cfg_hide_video":{"message": "спрятать shorts видео(нестабильно)"},
+    "cfg_warn_col":{"message": "Внимание!"},
+    "cfg_warn_msg":{"message": "Может работать неправильно!"},
+    "cfg_warn_fb":{"message": "Обратная связь"},
+    "cfg_warn_or":{"message": "или"},
+    "cfg_warn_pr":{"message": "Pull request"},
+    "cfg_ver":{"message": "Показать историю версий"},
+    "ui_openIn_view": {"message": "Стандартный плеер"},
+    "ui_openIn_title":{"message": "Открыть в Стандартном Проигрывателе(Новая Вкладка)"}
+}
