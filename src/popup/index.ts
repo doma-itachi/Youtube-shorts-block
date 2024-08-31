@@ -78,6 +78,17 @@ window.onload = async()=>{
         setToggleAttribute(config.enable);
     });
 
+    // firefoxの場合フィードバックURLをMozillaにする#45
+    const brand = getBrowserBrand();
+    let feedbackURL: string;
+    if(brand==="Chromium"){
+        feedbackURL = "https://chrome.google.com/webstore/detail/youtube-shorts-block/jiaopdjbehhjgokpphdfgmapkobbnmjp";
+    }
+    else{
+        feedbackURL = "https://addons.mozilla.org/firefox/addon/youtube-shorts-block/";
+    }
+    (document.getElementById("warn_fb") as HTMLAnchorElement).href = feedbackURL;
+
     // setting event
     document.querySelectorAll(".settings_column>input").forEach((element)=>{
         (element as HTMLInputElement).addEventListener("input", (e)=>{
@@ -110,4 +121,21 @@ function setToggleAttribute(isOpen: boolean){
     document.getElementById("logo")?.setAttribute("enabled", isOpen.toString());
     document.getElementById("toggle_wrap")?.setAttribute("checked", isOpen.toString());
     document.getElementById("toggle_circle")?.setAttribute("checked", isOpen.toString());
+}
+
+/**
+ * ブラウザがChromiumかFirefoxか判定する
+ * Chromium以外のブラウザをFirefoxと判定する
+ * [User-Agent Client Hints API](https://developer.mozilla.org/ja/docs/Web/API/User-Agent_Client_Hints_API)
+ */
+function getBrowserBrand(): "Chromium" | "Firefox"{
+    if(
+        navigator.userAgentData &&
+        navigator.userAgentData.brands[0].brand==="Chromium"
+    ){
+        return "Chromium";
+    }
+    else{
+        return "Firefox";
+    }
 }
