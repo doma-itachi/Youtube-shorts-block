@@ -1,10 +1,4 @@
-import { Config } from "../types/config";
-
-type IStorage = Partial<{
-    isEnable: boolean;
-    isHideTabs: boolean;
-    isHideVideos: boolean;
-}>
+import { Config, IStorage } from "../types/config";
 
 const config: Config = {
     enable: true,

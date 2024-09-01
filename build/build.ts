@@ -30,7 +30,8 @@ async function copyFiles(){
                 path.join(srcDir, "main.ts"),
                 path.join(srcDir, "popup/index.ts")
             ],
-            outdir: "dist"
+            outdir: "dist",
+            bundle: true
         });
         await copyFiles();
         console.log("[INFO] build successful.");

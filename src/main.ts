@@ -1,4 +1,9 @@
-import { Config } from "./types/config";
+import { channelFilter } from "./filter/channel";
+import { reelShelfFilter } from "./filter/reelShelf";
+import { richShelfFilter } from "./filter/richShelf";
+import { shortsFilter } from "./filter/shorts";
+import { Config, IStorage } from "./types/config";
+import { logf } from "./util/util";
 
 const config: Config = {
     enable: true,
@@ -7,6 +12,14 @@ const config: Config = {
 }
 
 class Extension{
+    observer: MutationObserver | null = null;
+
+    filterList: (()=>void)[] = [
+        reelShelfFilter,
+        richShelfFilter,
+        shortsFilter
+    ]
+
     constructor(){
         if(window.location.hostname.at(0)==="m"){
             window.addEventListener("state-navigatestart", (e)=>{
@@ -18,6 +31,16 @@ class Extension{
                 this.onNavigateStart((e.target as Node).baseURI);
             });
         }
+
+        chrome.storage.onChanged.addListener(()=>this.loadConfig());
+        this.loadConfig();
+
+        const url = Extension.convertToVideoURL(location.href);
+        if(url && config.enable){
+            location.href = url;
+        }
+        
+        logf("Youtube-shorts block activated.");
     }
 
     private onNavigateStart(destinationURL: string, mobile: boolean = false){
@@ -27,12 +50,65 @@ class Extension{
             location.href = videoURL;
         }
         else if(videoURL && !mobile){
-            
+            /* "新しいタブで開く"ボタンをDOMに注入 */
+        }
+    }
+
+    public async loadConfig(){
+        const storage = await chrome.storage.local.get(null) as IStorage;
+        if(typeof storage.isHideVideos === "boolean"){
+            config.hideShorts = storage.isHideVideos;
+        }
+        else{
+            logf(`"Hide shorts video" is enabled by default!\nIf you don't want to do that, please disable in option page!`);
+        }
+
+        if(typeof storage.isHideTabs === "boolean"){
+            config.hideTabs = storage.isHideTabs;
+        }
+
+        /* 各種機能の有効化・無効化 */
+        this.setObserve(config.enable && config.hideShorts);
+
+        const extensionClass = "youtube-shorts-block";
+        if(config.hideTabs){
+            document.body.classList.add(extensionClass);
+        }
+        else{
+            document.body.classList.remove(extensionClass);
+        }
+    }
+
+    private setObserve(isObserve: boolean){
+        if(isObserve){
+            if(this.observer !== null) return;
+
+            // youtube.comとm.youtube.comで監視対象を変える
+            let isMobile = false;
+            let container = document.getElementById("content");
+
+            if(container === null){
+                isMobile = true;
+                container = document.getElementById("app");
+
+                if(!container) return;
+            }
+
+            this.observer = new MutationObserver(()=>this.domChanged());
+            this.observer.observe(container, {childList: true, subtree: true});
+            if(isMobile)this.domChanged();
+        }
+        else{
+            if(this.observer === null) return;
+            this.observer.disconnect();
+            this.observer = null;
         }
     }
 
     private domChanged(){
-
+        for(const filter of this.filterList){
+            filter();
+        }
     }
 
     static convertToVideoURL(url: string): string | undefined{
