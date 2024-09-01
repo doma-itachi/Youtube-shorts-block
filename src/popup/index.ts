@@ -1,8 +1,4 @@
-interface Config {
-    enable: boolean,
-    hideTabs: boolean,
-    hideShorts: boolean
-}
+import { Config } from "../types/config";
 
 type IStorage = Partial<{
     isEnable: boolean;
