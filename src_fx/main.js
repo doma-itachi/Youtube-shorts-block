@@ -172,6 +172,10 @@ function removeShortVideo(){
     }
     del();
 
+    document.querySelectorAll("ytd-rich-shelf-renderer").forEach(element=>{
+        element.remove();
+    });
+
     //新しい登録ページを非表示にする
     document.querySelectorAll("ytd-rich-item-renderer").forEach(element=>{
         if(element.querySelector("span[aria-label='Shorts']")){
