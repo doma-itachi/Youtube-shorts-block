@@ -80,6 +80,7 @@ header>p{
     right: 1px;
     bottom: 1px;
     height: auto;
+    cursor: pointer;
 
     transition: var(--moreAnimationDuration);
 }

@@ -53,7 +53,7 @@ window.onload = async () => {
         versionElement.title = chrome.i18n.getMessage("cfg_ver");
         versionElement.addEventListener("click", () => {
             window.open(
-                "https://doma-itachi.github.io/Youtube-shorts-block/#release",
+                "https://github.com/doma-itachi/Youtube-shorts-block/releases",
             );
         });
     }
