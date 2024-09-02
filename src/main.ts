@@ -56,6 +56,11 @@ class Extension{
 
     public async loadConfig(){
         const storage = await chrome.storage.local.get(null) as IStorage;
+
+        if(typeof storage.isEnable === "boolean"){
+            config.enable = storage.isEnable;
+        }
+
         if(typeof storage.isHideVideos === "boolean"){
             config.hideShorts = storage.isHideVideos;
         }
