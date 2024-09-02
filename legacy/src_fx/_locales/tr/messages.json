@@ -1,0 +1,12 @@
+{
+  "ext_desc": {
+    "message": "Youtube shorts videolarını normal bir video gibi oynatın."
+  },
+  "cfg_hide_tab": { "message": "Sol menüdeki \"Shorts\" sekmesini gizle." },
+  "cfg_hide_video": { "message": "Shorts videolarını gizle (kararsız)" },
+  "cfg_warn_col": { "message": "Dikkat!" },
+  "cfg_warn_msg": { "message": " Doğru çalışmayabilir!" },
+  "cfg_warn_fb": { "message": "Geri Bildirim" },
+  "cfg_warn_or": { "message": " veya " },
+  "cfg_warn_pr": { "message": "Pull request" }
+}

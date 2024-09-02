@@ -1,0 +1,41 @@
+:root{
+    --iron-icon-color: #606060;
+}
+
+
+.youtube-shorts-block a[title='Shorts'], .youtube-shorts-block a[title='ショート']{
+    display: none !important;
+    pointer-events: none !important;
+}
+
+.youtube-shorts-block ytm-pivot-bar-item-renderer:has(.pivot-bar-item-tab.pivot-shorts){
+    display: none !important;
+}
+
+#block.youtube-shorts-block{
+    color: white;
+    margin: 6px 0;
+    display: flex;
+    flex-flow: column;
+    text-align: center;
+    font-size: 14px;
+    user-select: none;
+    cursor: pointer;
+}
+#block.youtube-shorts-block>svg{
+    fill: white;
+    margin: auto;
+}
+
+ytd-continuation-item-renderer:not(:last-child){
+    display: none;
+}
+
+@media screen and (min-width:600px){
+    #block.youtube-shorts-block{
+        color: var(--iron-icon-color);
+    }
+    #block.youtube-shorts-block>svg{
+        fill: var(--iron-icon-color);
+    }
+}

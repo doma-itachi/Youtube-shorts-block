@@ -1,0 +1,13 @@
+{
+    "ext_desc":{"message": "Youtubeのショート動画を普通の動画として表示します。"},
+    "cfg_hide_tab":{"message": "左メニューの\"ショート\"タブを非表示"},
+    "cfg_hide_video":{"message": "ショート動画を非表示"},
+    "cfg_warn_col":{"message": "警告！"},
+    "cfg_warn_msg":{"message": " 動作に影響を与える可能性があります！"},
+    "cfg_warn_fb":{"message": "フィードバック"},
+    "cfg_warn_or":{"message": "または"},
+    "cfg_warn_pr":{"message": "プルリクエスト"},
+    "cfg_ver":{"message": "リリースノートを表示"},
+    "ui_openIn_view": {"message": "開く"},
+    "ui_openIn_title":{"message": "通常のプレーヤーで開く（新しいタブ）"}
+}

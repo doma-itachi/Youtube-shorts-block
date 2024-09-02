@@ -1,0 +1,13 @@
+{
+    "ext_desc":{"message": "Jouer le Short comme si c'était une vidéo normale."}, 
+    "cfg_hide_tab":{"message": "cacher l'onglet \"shorts\""},
+    "cfg_hide_video":{"message": "cacher les shorts (instable)"},
+    "cfg_warn_col":{"message": "Attention!"},
+    "cfg_warn_msg":{"message": " Pourrait mal fonctionner!"},
+    "cfg_warn_fb":{"message": "Feedback"},
+    "cfg_warn_or":{"message": "ou"},
+    "cfg_warn_pr":{"message": "Pull request"},
+    "cfg_ver":{"message": "Show release notes"},
+    "ui_openIn_view": {"message": "Lecteur classique"},
+    "ui_openIn_title":{"message": "Ouvrir dans le lecteur classique (Nouvel Onglet)"}
+}

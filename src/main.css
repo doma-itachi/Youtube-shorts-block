@@ -2,7 +2,10 @@
     --iron-icon-color: #606060;
 }
 
-
+/*
+    en: Hide short tabs in the sidebar
+    ja: サイドバーのショートタブを隠す
+*/
 .youtube-shorts-block a[title='Shorts'], .youtube-shorts-block a[title='ショート']{
     display: none !important;
     pointer-events: none !important;
@@ -27,10 +30,18 @@
     margin: auto;
 }
 
+/*
+    en: Disable the display of loading spinners
+    ja: ローディングスピナーの表示を無効化
+*/
 ytd-continuation-item-renderer:not(:last-child){
     display: none;
 }
 
+/*
+    en: "Open in new tab" button in short player
+    ja: ショートプレーヤーでの"新しいタブで開く"ボタン
+*/
 @media screen and (min-width:600px){
     #block.youtube-shorts-block{
         color: var(--iron-icon-color);

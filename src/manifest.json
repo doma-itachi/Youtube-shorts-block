@@ -1,39 +1,35 @@
 {
+    "$schema": "https://json.schemastore.org/chrome-manifest",
     "manifest_version": 3,
     "name": "Youtube-shorts block",
     "version": "1.4.2",
     "description": "__MSG_ext_desc__",
     "default_locale": "en",
-    "icons":{
-        "32":"icons/icon32.png",
-        "64":"icons/icon64.png",
-        "128":"icons/icon128.png"
+    "icons": {
+        "32": "assets/icon32.png",
+        "64": "assets/icon64.png",
+        "128": "assets/icon128.png"
     },
-    "permissions":[
-        "storage"
-    ],
+    "permissions": ["storage"],
     "content_scripts": [
         {
             "matches": ["*://*.youtube.com/*", "*://m.youtube.com/*"],
-            "all_frames": true,
             "js": ["main.js"],
             "css": ["main.css"]
         }
     ],
     "action": {
-        "default_icon":{
-            "32":"icons/icon32.png",
-            "64":"icons/icon64.png",
-            "128":"icons/icon128.png"
+        "default_icon": {
+            "32": "assets/icon32.png",
+            "64": "assets/icon64.png",
+            "128": "assets/icon128.png"
         },
         "default_title": "Youtube-shorts block",
-        "default_popup": "popup.html"
+        "default_popup": "popup/index.html"
     },
     "web_accessible_resources": [
         {
-            "resources": [
-                "icons/to_normal.svg"
-            ],
+            "resources": ["assets/to_normal.svg"],
             "matches": ["*://*.youtube.com/*"]
         }
     ]
