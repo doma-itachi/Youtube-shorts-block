@@ -3,7 +3,7 @@ import { reelShelfFilter } from "./filter/reelShelf";
 import { richShelfFilter } from "./filter/richShelf";
 import { shortsFilter } from "./filter/shorts";
 import { Config, IStorage } from "./types/config";
-import { logf, querySelectorPromise } from "./util/util";
+import { logf, querySelectorAllPromise, querySelectorPromise } from "./util/util";
 
 const config: Config = {
     enable: true,
@@ -43,7 +43,7 @@ class Extension{
         logf("Youtube-shorts block activated.");
     }
 
-    private onNavigateStart(destinationURL: string, mobile: boolean = false){
+    private async onNavigateStart(destinationURL: string, mobile: boolean = false){
         const videoURL = Extension.convertToVideoURL(destinationURL);
         if(videoURL && config.enable){
             history.back();
@@ -51,6 +51,27 @@ class Extension{
         }
         else if(videoURL && !mobile){
             /* "新しいタブで開く"ボタンをDOMに注入 */
+            const elements = await querySelectorAllPromise("#actions.ytd-reel-player-overlay-renderer", 20, 100);
+            for(const element of elements){
+                if(element.parentNode?.querySelector(".youtube-shorts-block")==null){
+                    element.insertAdjacentHTML("afterbegin",
+                        `<div id="block" class="youtube-shorts-block" title="${chrome.i18n.getMessage("ui_openIn_title")}">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" width="24px" viewBox="0 -960 960 960">
+                        <path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h560v-280h80v280q0 33-23.5 56.5T760-120H200Zm188-212-56-56 372-372H560v-80h280v280h-80v-144L388-332Z"/>
+                        </svg>
+                        ${chrome.i18n.getMessage("ui_openIn_view")}
+                        </div>`
+                    )
+
+                    element.parentNode?.querySelector("#block")?.addEventListener("click", ()=>{
+                        //動画の再生を停止する
+                        document.querySelectorAll("video").forEach(e=>{
+                            e.pause();
+                        });
+                        window.open(videoURL);
+                    });
+                }
+            }
         }
     }
 
