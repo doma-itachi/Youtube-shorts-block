@@ -1,7 +1,8 @@
 {
     "scripts": {
         "dev": "tsx ./build/dev.ts",
-        "build": "tsx ./build/build.ts"
+        "build": "tsx ./build/build.ts",
+        "check": "biome check --apply src"
     },
     "devDependencies": {
         "@biomejs/biome": "1.8.3",

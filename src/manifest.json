@@ -10,15 +10,10 @@
         "64": "assets/icon64.png",
         "128": "assets/icon128.png"
     },
-    "permissions": [
-        "storage"
-    ],
+    "permissions": ["storage"],
     "content_scripts": [
         {
-            "matches": [
-                "*://*.youtube.com/*",
-                "*://m.youtube.com/*"
-            ],
+            "matches": ["*://*.youtube.com/*", "*://m.youtube.com/*"],
             "js": ["main.js"],
             "css": ["main.css"]
         }
@@ -34,12 +29,8 @@
     },
     "web_accessible_resources": [
         {
-            "resources": [
-                "assets/to_normal.svg"
-            ],
-            "matches": [
-                "*://*.youtube.com/*"
-            ]
+            "resources": ["assets/to_normal.svg"],
+            "matches": ["*://*.youtube.com/*"]
         }
     ]
 }
