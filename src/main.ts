@@ -3,7 +3,7 @@ import { reelShelfFilter } from "./filter/reelShelf";
 import { richShelfFilter } from "./filter/richShelf";
 import { shortsFilter } from "./filter/shorts";
 import { Config, IStorage } from "./types/config";
-import { logf } from "./util/util";
+import { logf, querySelectorPromise } from "./util/util";
 
 const config: Config = {
     enable: true,
@@ -79,24 +79,24 @@ class Extension{
         }
     }
 
-    private setObserve(isObserve: boolean){
+    private async setObserve(isObserve: boolean){
         if(isObserve){
             if(this.observer !== null) return;
 
-            // youtube.comとm.youtube.comで監視対象を変える
-            let isMobile = false;
-            let container = document.getElementById("content");
+            /**
+             * #content ← youtube.com
+             * #app ←m.youtube.com
+             */
+            const container = await querySelectorPromise("#content, #app");
 
-            if(container === null){
-                isMobile = true;
-                container = document.getElementById("app");
-
-                if(!container) return;
+            if(!container){
+                logf("cannot find rootElement. currently, HideShorts isn't working!", "error");
+                return;
             }
 
             this.observer = new MutationObserver(()=>this.domChanged());
             this.observer.observe(container, {childList: true, subtree: true});
-            if(isMobile)this.domChanged();
+            this.domChanged();
         }
         else{
             if(this.observer === null) return;
