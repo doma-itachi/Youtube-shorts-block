@@ -1,52 +1,21 @@
 import esbuild from "esbuild";
-import fs from "fs-extra";
-import path from "path";
+import { archiveDist, buildOptions, copyFiles, copyManifest, manifest } from "./common";
 
-const srcDir = "src";
-const distDir = "dist";
-
-const buildInclude = [
-    "_locales",
-    "assets",
-    "popup/index.html",
-    "popup/popup.css",
-    "main.css",
-    "manifest.json"
-];
-
-async function copyFiles(){
-    for(const i of buildInclude){
-        await fs.copy(
-            path.join(srcDir, i),
-            path.join(distDir, i)
-        )
-    }
-}
 
 (async()=>{
     try{
-        await esbuild.build({
-            entryPoints: [
-                path.join(srcDir, "main.ts"),
-                path.join(srcDir, "popup/index.ts")
-            ],
-            outdir: "dist",
-            bundle: true
-        });
+        await esbuild.build(buildOptions);
+        await copyManifest();
         await copyFiles();
         console.log("[INFO] build successful.");
+
+        const zipName = `Youtube-shorts_block_v${manifest.version.replaceAll(".", "")}.zip`;
+        await archiveDist(zipName);
+        console.log(`[INFO] zip: ${zipName}`)
+        
     }
-    catch{
+    catch (e){
         console.error("[ERR!] build failed.");
+        throw e;
     }
-
-    // const ctx = await esbuild.context({
-    //     entryPoints: [
-    //         "src/main.ts",
-    //         "src/popup/index.ts"
-    //     ],
-    //     outdir: "dist"
-    // });
-    // ctx.watch
-
 })();
