@@ -84,7 +84,7 @@ class Extension {
                             document.querySelectorAll("video").forEach((e) => {
                                 e.pause();
                             });
-                            window.open(videoURL);
+                            window.open(Extension.convertToVideoURL(location.href));
                         });
                 }
             }
