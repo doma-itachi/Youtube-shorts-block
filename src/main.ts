@@ -161,7 +161,7 @@ class Extension {
     }
 
     static convertToVideoURL(url: string): string | undefined {
-        const result = url.match(/shorts\/(.*)\/?/);
+        const result = url.match(/shorts\/(.{11})\/?/);
         if (result) {
             return `https://www.youtube.com/watch?v=${result[1]}`;
         }
