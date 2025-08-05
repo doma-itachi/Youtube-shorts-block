@@ -18,7 +18,7 @@ const config: Config = {
 class Extension {
     observer: MutationObserver | null = null;
 
-    filterList: (() => void)[] = [
+    filterList: (() => void | Promise<void>)[] = [
         reelShelfFilter,
         richShelfFilter,
         shortsFilter,
@@ -154,9 +154,9 @@ class Extension {
         }
     }
 
-    private domChanged() {
+    private async domChanged() {
         for (const filter of this.filterList) {
-            filter();
+            await filter();
         }
     }
 
