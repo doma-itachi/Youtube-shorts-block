@@ -8,7 +8,7 @@ export async function richShelfFilter() {
     ];
 
     for (const s of selectors) {
-        const shelfs = await querySelectorAllPromise(s, 3, 50);
+        const shelfs = await querySelectorAllPromise(s);
         for (const shelf of shelfs) {
             shelf.remove();
         }
