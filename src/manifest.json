@@ -2,7 +2,7 @@
     "$schema": "https://json.schemastore.org/chrome-manifest",
     "manifest_version": 3,
     "name": "Youtube-shorts block",
-    "version": "1.5.3",
+    "version": "1.5.4",
     "description": "__MSG_ext_desc__",
     "default_locale": "en",
     "icons": {
