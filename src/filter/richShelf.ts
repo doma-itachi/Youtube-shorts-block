@@ -1,4 +1,6 @@
-export function richShelfFilter() {
+import { querySelectorAllPromise } from "../util/util";
+
+export async function richShelfFilter() {
 
     const selectors = [
         "ytd-rich-shelf-renderer:has(h2>yt-icon:not([hidden]))",
@@ -6,7 +8,7 @@ export function richShelfFilter() {
     ];
 
     for (const s of selectors) {
-        const shelfs = document.querySelectorAll(s);
+        const shelfs = await querySelectorAllPromise(s);
         for (const shelf of shelfs) {
             shelf.remove();
         }
