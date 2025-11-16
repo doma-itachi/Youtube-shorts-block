@@ -34,7 +34,7 @@
     en: Disable the display of loading spinners
     ja: ローディングスピナーの表示を無効化
 */
-ytd-continuation-item-renderer:not(:last-child){
+ytd-continuation-item-renderer:not(:last-child):not(#comments *){
     display: none;
 }
 
