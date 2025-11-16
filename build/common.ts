@@ -43,6 +43,16 @@ export class Manifest{
         delete m.$schema;
         return m;
     }
+
+    getManifestForFirefox(){
+        const m = this.getManifest();
+        m.browser_specific_settings = {
+            gecko: {
+                id: "{34daeb50-c2d2-4f14-886a-7160b24d66a4}"
+            }
+        };
+        return m;
+    }
 }
 
 export const buildOptions: BuildOptions = {
@@ -63,8 +73,16 @@ export async function copyManifest(){
     );
 }
 
+export async function writeManifestFile(content: any){
+    await writeFile(
+        path.join(distDir, "manifest.json"),
+        JSON.stringify(content, null, "    "),
+        {encoding: "utf8"}
+    );
+}
+
 export async function archiveDist(destination: string){
-    return new Promise((resolve, reject)=>{
+    return new Promise<void>((resolve, reject)=>{
         const archive = archiver("zip");
         const outputStream = createWriteStream(destination);
         archive.pipe(outputStream);
